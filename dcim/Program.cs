@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dcim.dataprovider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,19 @@ namespace dcim
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            DCAuthDialog dlg = new DCAuthDialog();
+            if (dlg.ShowDialog() == DialogResult.Cancel)
+                Application.Exit();
+            else
+            {
+                string user = dlg.UserName;
+                string passwd = dlg.Password;
+                DCDataProvider dp = new DCDataProvider();
+                if (!dp.AuthUser(user, passwd))
+                    Application.Exit();
+                else
+                    Application.Run(new MainForm());
+            }
         }
     }
 }
