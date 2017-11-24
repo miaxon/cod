@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.DirectoryServices;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace dcim
         public DCAuthDialog()
         {
             InitializeComponent();
+            chb_allow_winauth.Checked = Properties.Settings.Default.allow_winauth;
         }
         public string UserName
         {
@@ -36,5 +38,18 @@ namespace dcim
             if (e.KeyCode == Keys.Enter)
                 this.DialogResult = DialogResult.OK;
         }
+
+        private void chb_allow_winauth_CheckedChanged(object sender, EventArgs e)
+        {
+            txt_username.Enabled = txt_password.Enabled = !chb_allow_winauth.Checked;
+            txt_username.Text = Environment.UserName;
+            using (DirectoryEntry domain = new DirectoryEntry(string.Format("WinNT://{0}/{1}", Environment.UserDomainName, Environment.UserName)))
+            {
+                lbl_fullName.Text = domain.Properties["fullname"].Value.ToString();
+            }
+            Properties.Settings.Default.allow_winauth = chb_allow_winauth.Checked;
+            Properties.Settings.Default.Save();
+        }
+        
     }
 }

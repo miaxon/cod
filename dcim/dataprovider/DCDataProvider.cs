@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using dcim.dialogs;
+using dcim.objects;
 
 namespace dcim.dataprovider
 {
@@ -32,8 +33,40 @@ namespace dcim.dataprovider
                 return;
             }
         }
+        public DCUser GetUser(string name)
+        {
+            MySqlDataReader reader = null;
+            string query = string.Format("select * from dc_user where name='{0}'", name);
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);
+            DCUser u = null;
+
+            try
+            {
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    object[] values = new object[reader.FieldCount];
+                    reader.GetValues(values);
+                    u = new DCUser(values);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                DCMessageBox.OkFail(ex.Message);
+                return null;
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
+            return u;
+        }
         public bool AuthUser(string name, string passwd)
         {
+            DCUser u = GetUser(name);
+            if (u.AllowWinAuth)
+                return true;
             MySqlDataReader reader = null;
             string query = string.Format("select * from dc_user where passwd=SHA2('{0}', 256)", "admin");
             MySqlCommand cmd = new MySqlCommand(query, m_conn);

@@ -22,5 +22,17 @@ namespace dcim.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool allow_winauth {
+            get {
+                return ((bool)(this["allow_winauth"]));
+            }
+            set {
+                this["allow_winauth"] = value;
+            }
+        }
     }
 }
