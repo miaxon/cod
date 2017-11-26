@@ -90,14 +90,14 @@ namespace dcim.dataprovider
             }
             return t;
         }
-        public Int64 Count(string query)
+        public T GetScalar<T>(string query) where T:new()
         {
             MySqlDataReader reader = null;
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
-            Int64 result = 0;
+            T result = new T();
             try
             {
-                result = (Int64)cmd.ExecuteScalar();               
+                result = (T)cmd.ExecuteScalar();               
             }
             catch (MySqlException ex)
             {
@@ -110,6 +110,25 @@ namespace dcim.dataprovider
             }
             return result;
         }
-        
+        public long Update(string query)
+        {
+            MySqlDataReader reader = null;
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);
+            long result = 0;
+            try
+            {
+                result = (long)cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                DCMessageBox.OkFail(ex.Message);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
+            return result;
+        }
     }
 }

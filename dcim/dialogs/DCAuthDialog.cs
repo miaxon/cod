@@ -1,4 +1,5 @@
 ﻿using dcim.dialogs;
+using dcim.objects;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -43,10 +44,7 @@ namespace dcim.dialogs
         {
             txt_username.Enabled = txt_password.Enabled = !chb_allow_winauth.Checked;
             txt_username.Text = Environment.UserName;
-            using (DirectoryEntry domain = new DirectoryEntry(string.Format("WinNT://{0}/{1}", Environment.UserDomainName, Environment.UserName)))
-            {
-                lbl_fullName.Text = domain.Properties["fullname"].Value.ToString();
-            }
+            lbl_fullName.Text = DCUser.GetFullName();
             Properties.Settings.Default.allow_winauth = chb_allow_winauth.Checked;
             Properties.Settings.Default.Save();
         }
