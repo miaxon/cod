@@ -52,10 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dataprovider\DCDataProvider.cs" />
-    <Compile Include="DCAuthDialog.cs">
+    <Compile Include="dialogs\DCAuthDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DCAuthDialog.Designer.cs">
+    <Compile Include="dialogs\DCAuthDialog.Designer.cs">
       <DependentUpon>DCAuthDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="dialogs\DCBaseDialog.cs">
@@ -72,13 +72,17 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="objects\DCUser.cs" />
+    <Compile Include="objects\IDCObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DCAuthDialog.resx">
+    <EmbeddedResource Include="dialogs\DCAuthDialog.resx">
       <DependentUpon>DCAuthDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dialogs\DCBaseDialog.resx">
       <DependentUpon>DCBaseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -90,6 +94,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="db\dc.mwb" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -101,7 +106,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="db\dc_init.sql" />

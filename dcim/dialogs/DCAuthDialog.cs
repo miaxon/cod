@@ -9,7 +9,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace dcim
+namespace dcim.dialogs
 {
     public partial class DCAuthDialog : dcim.dialogs.DCBaseDialog
     {        

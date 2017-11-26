@@ -7,6 +7,7 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using dcim.dialogs;
 using dcim.objects;
+using System.Data;
 
 namespace dcim.dataprovider
 {
@@ -33,13 +34,11 @@ namespace dcim.dataprovider
                 return;
             }
         }
-        public DCUser GetUser(string name)
+        public List<T> Select<T>(string query) where T : IDCObject, new()
         {
-            MySqlDataReader reader = null;
-            string query = string.Format("select * from dc_user where name='{0}'", name);
-            MySqlCommand cmd = new MySqlCommand(query, m_conn);
-            DCUser u = null;
-
+            List<T> dt = new List<T>();
+            MySqlDataReader reader = null;            
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);           
             try
             {
                 reader = cmd.ExecuteReader();
@@ -47,7 +46,9 @@ namespace dcim.dataprovider
                 {
                     object[] values = new object[reader.FieldCount];
                     reader.GetValues(values);
-                    u = new DCUser(values);
+                    T t = new T();
+                    t.fromArray(values);
+                    dt.Add(t);
                 }
             }
             catch (MySqlException ex)
@@ -60,38 +61,55 @@ namespace dcim.dataprovider
                 if (reader != null)
                     reader.Close();
             }
-            return u;
+            return dt;
         }
-        public bool AuthUser(string name, string passwd)
+        public T SelectOne<T>(string query) where T : IDCObject, new()
         {
-            DCUser u = GetUser(name);
-            if (u.AllowWinAuth)
-                return true;
             MySqlDataReader reader = null;
-            string query = string.Format("select * from dc_user where passwd=SHA2('{0}', 256)", "admin");
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
-            string username = "";
+            T t = new T();
             try
             {
-                reader = cmd.ExecuteReader();
+                reader = cmd.ExecuteReader();                
                 while (reader.Read())
                 {
                     object[] values = new object[reader.FieldCount];
                     reader.GetValues(values);
-                    username = values[4].ToString();
+                    t.fromArray(values);
                 }
             }
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
-                return false;
+                return t;
             }
             finally
             {
                 if (reader != null)
                     reader.Close();
             }
-            return username.Equals(name); ;
+            return t;
         }
+        public Int64 Count(string query)
+        {
+            MySqlDataReader reader = null;
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);
+            Int64 result = 0;
+            try
+            {
+                result = (Int64)cmd.ExecuteScalar();               
+            }
+            catch (MySqlException ex)
+            {
+                DCMessageBox.OkFail(ex.Message);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
+            return result;
+        }
+        
     }
 }

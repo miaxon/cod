@@ -1,4 +1,4 @@
-﻿namespace dcim
+﻿namespace dcim.dialogs
 {
     partial class DCAuthDialog
     {

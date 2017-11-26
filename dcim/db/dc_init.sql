@@ -64,21 +64,22 @@ CREATE TABLE `dc_user` (
   `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
   `version` INTEGER(11) NOT NULL DEFAULT 0,
   `uuid` VARCHAR(36) COLLATE utf8_general_ci NOT NULL COMMENT 'dc object guid',
-  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` VARCHAR(32) COLLATE utf8_general_ci NOT NULL,
-  `email` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `passwd` VARCHAR(255) COLLATE utf8_general_ci NOT NULL,
-  `allow_winauth` INTEGER(11) DEFAULT 0,
+  `email` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `passwd` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `allow_winauth` INTEGER(11) NOT NULL DEFAULT 0,
   `status` INTEGER(11) NOT NULL DEFAULT 0,
-  `last_logon` TIMESTAMP NULL DEFAULT NULL,
-  `info` TEXT COLLATE utf8_general_ci,
+  `last_logon` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `info` TEXT COLLATE utf8_general_ci NOT NULL,
+  `full_name` VARCHAR(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY USING BTREE (`id`),
   UNIQUE KEY `guid_UNIQUE` USING BTREE (`uuid`),
   UNIQUE KEY `name_UNIQUE` USING BTREE (`name`),
   KEY `dc_status_id_idx` USING BTREE (`status`),
   CONSTRAINT `dc_status_id` FOREIGN KEY (`status`) REFERENCES `dc_status` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB
-AUTO_INCREMENT=4 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
+AUTO_INCREMENT=5 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 COMMENT='DC users'
 ;
 
@@ -96,7 +97,7 @@ CREATE TABLE `dc_session` (
   KEY `dc_user_id_idx` USING BTREE (`user_id`),
   CONSTRAINT `dc_user_id` FOREIGN KEY (`user_id`) REFERENCES `dc_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB
-AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
+AUTO_INCREMENT=2 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 ;
 
 /* Structure for the `dc_type` table : */
@@ -147,12 +148,25 @@ UPDATE `dc_status` SET id=0 WHERE id=LAST_INSERT_ID();
 COMMIT;
 /* Data for the `dc_user` table  (LIMIT 0,500) */
 
-INSERT INTO `dc_user` (`id`, `version`, `uuid`, `create_time`, `name`, `email`, `passwd`, `allow_winauth`, `status`, `last_logon`, `info`) VALUES
-  (0,0,'f06f4bd2-d0a9-11e7-a949-1e9f2883c798','2017-11-24 02:56:35','admin',NULL,'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',0,0,NULL,NULL);
+INSERT INTO `dc_user` (`id`, `version`, `uuid`, `create_time`, `name`, `email`, `passwd`, `allow_winauth`, `status`, `last_logon`, `info`, `full_name`) VALUES
+  (0,0,'f06f4bd2-d0a9-11e7-a949-1e9f2883c798','2017-11-24 02:56:35','admin','','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',0,0,'2017-11-26 13:51:13','',''),
+  (4,0,'9022a1ca-d0cc-11e7-a949-1e9f2883c798','2017-11-24 07:04:26','n5201-00-054','','',1,0,'2017-11-26 13:51:13','','');
 COMMIT;
 
 UPDATE `dc_user` SET id=0 WHERE id=LAST_INSERT_ID();
 COMMIT;
+/* Definition for the `dc_session_BEFORE_INSERT` trigger : */
+
+DELIMITER $$
+
+CREATE DEFINER = 'admin'@'%' TRIGGER `dc_session_BEFORE_INSERT` BEFORE INSERT ON `dc_session`
+  FOR EACH ROW
+BEGIN
+SET NEW.remote_ip = (SELECT SUBSTRING_INDEX(USER(), '@', -1));
+END$$
+
+DELIMITER ;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
