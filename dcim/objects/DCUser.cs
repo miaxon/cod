@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.DirectoryServices;
 using static dcim.Program;
+using dcim.objects;
 namespace dcim.objects
 {
     public class DCUser : IDCObject
