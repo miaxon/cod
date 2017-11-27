@@ -36,7 +36,7 @@ namespace dcim.objects
             m_info = (string)values[9];
             m_full_name = (string)values[10];            
         }
-        private void logon()
+        private void Logon()
         {
             if (m_allow_winauth == 1)
                 m_full_name = GetFullName();
@@ -67,14 +67,14 @@ namespace dcim.objects
         {
             if (m_allow_winauth == 1)
             {
-                logon();
+                Logon();
                 return true;
             }
             string query = string.Format("select count(*) from dc_user where name='{0}' and passwd=SHA2('{0}', 256)", m_name, password);
             bool sucsess = DataProvider.GetScalar<long>(query) == 1;
             if (sucsess)
             {
-                logon();
+                Logon();
                 return true;
             }
             return false;
