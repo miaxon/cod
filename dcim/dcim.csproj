@@ -71,6 +71,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="objects\DCSession.cs" />
     <Compile Include="objects\DCUser.cs" />
     <Compile Include="objects\IDCObject.cs" />
     <Compile Include="Program.cs" />

@@ -34,5 +34,29 @@ namespace dcim.Properties {
                 this["allow_winauth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ssid {
+            get {
+                return ((string)(this["ssid"]));
+            }
+            set {
+                this["ssid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string username {
+            get {
+                return ((string)(this["username"]));
+            }
+            set {
+                this["username"] = value;
+            }
+        }
     }
 }

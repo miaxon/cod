@@ -13,14 +13,15 @@ namespace dcim.dataprovider
 {
     public class DCDataProvider
     {
-        string m_conn_string = "server=10.0.225.117;" +
+        private string m_conn_string = "server=192.168.1.101;" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
                                 "Allow User Variables=True;" +
                                 "Allow Zero Datetime=True;" +
                                 "Character Set=utf8;" +
                                 "Convert Zero Datetime=True";
-        MySqlConnection m_conn;
+        private MySqlConnection m_conn;
+        public DCSession session { get; set; }
         public DCDataProvider()
         {
             m_conn = new MySqlConnection(m_conn_string);
