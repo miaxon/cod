@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.DirectoryServices;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static dcim.Program;
 namespace dcim.objects
 {
@@ -34,7 +31,7 @@ namespace dcim.objects
             m_status = (int)values[7];
             m_last_logon = (MySqlDateTime)values[8];
             m_info = (string)values[9];
-            m_full_name = (string)values[10];            
+            m_full_name = (string)values[10];
         }
         private void Logon()
         {
@@ -42,6 +39,14 @@ namespace dcim.objects
                 m_full_name = GetFullName();
             string query = string.Format("update dc_user set last_logon=CURRENT_TIMESTAMP where id={0}", m_id);
             DataProvider.Update(query);
+            DCSession s = DCSession.Get(m_id, Properties.Settings.Default.ssid);
+            if (s != null)
+            {
+                DataProvider.session = s;
+                Properties.Settings.Default.username = m_name;
+                Properties.Settings.Default.ssid = s.ssid;
+                Properties.Settings.Default.Save();
+            }
         }
 
         public static string GetFullName()
@@ -62,7 +67,7 @@ namespace dcim.objects
             string query = string.Format("select * from dc_user");
             return DataProvider.Select<DCUser>(query);
         }
-        
+
         public bool Auth(string password)
         {
             if (m_allow_winauth == 1)
@@ -70,7 +75,7 @@ namespace dcim.objects
                 Logon();
                 return true;
             }
-            string query = string.Format("select count(*) from dc_user where name='{0}' and passwd=SHA2('{0}', 256)", m_name, password);
+            string query = string.Format("select count(*) from dc_user where name='{0}' and passwd=SHA2('{1}', 256)", m_name, password);
             bool sucsess = DataProvider.GetScalar<long>(query) == 1;
             if (sucsess)
             {
@@ -78,6 +83,6 @@ namespace dcim.objects
                 return true;
             }
             return false;
-        }        
+        }
     }
 }

@@ -1,23 +1,16 @@
-﻿using dcim.dialogs;
-using dcim.objects;
-using MySql.Data.MySqlClient;
+﻿using dcim.objects;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.DirectoryServices;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace dcim.dialogs
 {
-    public partial class DCAuthDialog : dcim.dialogs.DCBaseDialog
+    public partial class DCAuthDialog : DCBaseDialog
     {        
         public DCAuthDialog()
         {
             InitializeComponent();
             chb_allow_winauth.Checked = Properties.Settings.Default.allow_winauth;
+            txt_username.Text = Properties.Settings.Default.username;
         }
         public string UserName
         {
@@ -27,11 +20,6 @@ namespace dcim.dialogs
         public string Password
         {
             get { return txt_password.Text; }
-        }
-        private void DCAuthDialog_Load(object sender, EventArgs e)
-        {
-            
-            
         }
 
         private void txt_password_KeyDown(object sender, KeyEventArgs e)
