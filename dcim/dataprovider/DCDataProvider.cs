@@ -8,11 +8,13 @@ using MySql.Data.MySqlClient;
 using dcim.dialogs;
 using dcim.objects;
 using System.Data;
+using NLog;
 
 namespace dcim.dataprovider
 {
     public class DCDataProvider : IDisposable
     {
+        private static Logger m_logger = LogManager.GetLogger("mysql");
         private string m_conn_string = "server=10.0.225.117;" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
@@ -43,6 +45,7 @@ namespace dcim.dataprovider
                 m_conn.InfoMessage += M_conn_InfoMessage;
                 m_conn.StateChange += M_conn_StateChange;
             }
+            m_logger.Info(Info());
         }
         public string Info()
         {
@@ -53,10 +56,10 @@ namespace dcim.dataprovider
                 string source = m_conn.DataSource;
                 string state = m_conn.State.ToString();
                 return string.Format(
-                    "Server:   {0}\n" +
-                    "DataBase: {1}\n" +
-                    "Source:   {2}\n" +
-                    "State:    {3}",
+                    "\nServer:   {0}\n" +
+                    "DataBase:   {1}\n" +
+                    "Source:     {2}\n" +
+                    "Connection: {3}",
                     server,
                     db,
                     source,
