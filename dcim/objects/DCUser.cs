@@ -34,12 +34,10 @@ namespace dcim.objects
             m_status = (int)values[7];
             m_last_logon = (MySqlDateTime)values[8];
             m_info = (string)values[9];
-            m_full_name = (string)values[10];
+            m_full_name = (m_allow_winauth == 1) ? GetFullName() : (string)values[10];
         }
         private void Logon()
         {
-            if (m_allow_winauth == 1)
-                m_full_name = GetFullName();
             string query = string.Format("update dc_user set last_logon=CURRENT_TIMESTAMP where id={0}", m_id);
             DataProvider.Update(query);
             DCSession s = DCSession.Get(m_id, Properties.Settings.Default.ssid);
@@ -62,7 +60,9 @@ namespace dcim.objects
 
         public static DCUser Get(string name)
         {
-            string query = string.Format("select id, version, uuid, create_time, name, email, allow_winauth, status, last_logon, info, full_name from dc_user where name='{0}'", name);
+            //string query = string.Format("select id, version, uuid, create_time, name, email, allow_winauth, status, last_logon, info, full_name from dc_user where name='{0}'", name);
+            string query = string.Format("get_user('{0}')", name);
+            object s = DataProvider.GetScalar<object>("select logon('hqw')");
             return DataProvider.SelectOne<DCUser>(query);
         }
         public static List<DCUser> GetList()

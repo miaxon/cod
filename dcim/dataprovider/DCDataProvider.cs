@@ -13,7 +13,9 @@ namespace dcim.dataprovider
 {
     public class DCDataProvider : IDisposable
     {
-        private string m_conn_string = "server=10.0.225.117;" +
+        private string m_conn_string = 
+                                "server=192.168.1.101;" +
+                                //"server=10.0.225.117;" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
                                 "Allow User Variables=True;" +
@@ -149,18 +151,16 @@ namespace dcim.dataprovider
         }
         public T GetScalar<T>(string query) where T : new()
         {
-            MySqlCommand cmd = new MySqlCommand(query, m_conn);
-            T result = new T();
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);            
             try
             {
-                result = (T)cmd.ExecuteScalar();
+                return (T)cmd.ExecuteScalar();
             }
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
                 return default(T);
             }            
-            return result;
         }
         public long Update(string query)
         {
