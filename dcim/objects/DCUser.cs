@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.DirectoryServices;
 using static dcim.Program;
 using dcim.objects;
+using dcim.dialogs;
+
 namespace dcim.objects
 {
     public class DCUser : IDCObject
@@ -43,9 +45,9 @@ namespace dcim.objects
             DCSession s = DCSession.Get(m_id, Properties.Settings.Default.ssid);
             if (s != null)
             {
-                DataProvider.session = s;
+                DataProvider.Session = s;
                 Properties.Settings.Default.username = m_name;
-                Properties.Settings.Default.ssid = s.ssid;
+                Properties.Settings.Default.ssid = s.Ssid;
                 Properties.Settings.Default.Save();
             }
         }

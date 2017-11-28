@@ -22,17 +22,16 @@ namespace dcim.dialogs
             get { return txt_password.Text; }
         }
 
-        private void txt_password_KeyDown(object sender, KeyEventArgs e)
+        private void M_txt_password_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 this.DialogResult = DialogResult.OK;
         }
 
-        private void chb_allow_winauth_CheckedChanged(object sender, EventArgs e)
+        private void M_chb_allow_winauth_CheckedChanged(object sender, EventArgs e)
         {
             txt_username.Enabled = txt_password.Enabled = !chb_allow_winauth.Checked;
             txt_username.Text = Environment.UserName;
-            lbl_fullName.Text = DCUser.GetFullName();
             Properties.Settings.Default.allow_winauth = chb_allow_winauth.Checked;
             Properties.Settings.Default.Save();
         }

@@ -16,7 +16,7 @@ namespace dcim.objects
         private string m_remote_ip;
         private MySqlDateTime m_timestamp;
 
-        public string ssid { get { return m_uuid; } }
+        public string Ssid { get { return m_uuid; } }
         public DCSession() { }
 
         public void fromArray(object[] values)
@@ -32,7 +32,7 @@ namespace dcim.objects
         {
             get
             {
-                bool result = m_timestamp.Value.AddMinutes(1) >= DateTime.Now;
+                bool result = m_timestamp.Value.AddMinutes(10) >= DateTime.Now;
                 if(!result)
                 {
                     string query = string.Format("delete from dc_session where uuid='{0}'", m_uuid);
@@ -50,14 +50,14 @@ namespace dcim.objects
                 if (s.IsValid)
                     return s;
                 else
-                    return Get(user_id, null);
+                    return DCSession.Get(user_id, null);
             }
             else
             {
-                uuid = Guid.NewGuid().ToString();
-                string query = string.Format("insert into dc_session (user_id, uuid) values ({0}, '{1}')", user_id, uuid);
+                string new_uuid = Guid.NewGuid().ToString();
+                string query = string.Format("insert into dc_session (user_id, uuid) values ({0}, '{1}')", user_id, new_uuid);
                 if (DataProvider.Update(query) == 1)
-                    return Get(user_id, uuid);
+                    return DCSession.Get(user_id, new_uuid);
                 else
                     return null;
             }

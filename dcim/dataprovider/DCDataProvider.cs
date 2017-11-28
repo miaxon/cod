@@ -11,7 +11,7 @@ using System.Data;
 
 namespace dcim.dataprovider
 {
-    public class DCDataProvider
+    public class DCDataProvider : IDisposable
     {
         private string m_conn_string = "server=10.0.225.117;" +
                                 "User Id=dc_admin;password=dc_admin;" +
@@ -21,7 +21,11 @@ namespace dcim.dataprovider
                                 "Character Set=utf8;" +
                                 "Convert Zero Datetime=True";
         private MySqlConnection m_conn;
-        public DCSession session { get; set; }
+        public DCSession Session { get; set; }
+        public void Dispose()
+        {
+            m_conn.Dispose();
+        }
         public DCDataProvider()
         {
             m_conn = new MySqlConnection(m_conn_string);
@@ -34,12 +38,65 @@ namespace dcim.dataprovider
                 DCMessageBox.OkFail(ex.Message);
                 return;
             }
+            if (m_conn.State == ConnectionState.Open)
+            {
+                m_conn.InfoMessage += M_conn_InfoMessage;
+                m_conn.StateChange += M_conn_StateChange;
+            }
         }
+        public string Info()
+        {
+            if (m_conn.State != ConnectionState.Closed)
+            {
+                string server = m_conn.ServerVersion;
+                string db = m_conn.Database;
+                string source = m_conn.DataSource;
+                string state = m_conn.State.ToString();
+                return string.Format(
+                    "Server:   {0}\n" +
+                    "DataBase: {1}\n" +
+                    "Source:   {2}\n" +
+                    "State:    {3}",
+                    server,
+                    db,
+                    source,
+                    state);
+            }
+            else
+            {
+                return "Connection closed.";
+            }
+        }
+
+        private void M_conn_StateChange(object sender, StateChangeEventArgs e)
+        {
+            string msg = string.Format("MySql connection state changed from {0} to '{1}'", e.OriginalState, e.CurrentState);
+            //TODO: write log;
+        }
+
+        private void M_conn_InfoMessage(object sender, MySqlInfoMessageEventArgs args)
+        {
+            MySqlError[] errors = args.errors;
+            string errstr = "";
+            foreach (var e in errors)
+                errstr += string.Format("{0} (1)", e.Code, e.Message) + Environment.NewLine;
+            string msg = string.Format("MySql connection info message:{0} {1}", Environment.NewLine, errstr);
+            //TODO: write log;
+        }
+
+        private bool CheckSession()
+        {
+            if (Session.IsValid)
+                return true;
+            return false;
+            //TODO: get new ssid if not valid;
+        }
+
         public List<T> Select<T>(string query) where T : IDCObject, new()
         {
             List<T> dt = new List<T>();
-            MySqlDataReader reader = null;            
-            MySqlCommand cmd = new MySqlCommand(query, m_conn);           
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);
+            MySqlDataReader reader = null;
             try
             {
                 reader = cmd.ExecuteReader();
@@ -55,7 +112,6 @@ namespace dcim.dataprovider
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
-                return null;
             }
             finally
             {
@@ -66,12 +122,12 @@ namespace dcim.dataprovider
         }
         public T SelectOne<T>(string query) where T : IDCObject, new()
         {
-            MySqlDataReader reader = null;
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
+            MySqlDataReader reader = null;
             T t = new T();
             try
             {
-                reader = cmd.ExecuteReader();                
+                reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     object[] values = new object[reader.FieldCount];
@@ -82,53 +138,52 @@ namespace dcim.dataprovider
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
-                return t;
+                return default(T);
             }
             finally
             {
                 if (reader != null)
-                    reader.Close();
+                    reader.Close();               
             }
             return t;
         }
-        public T GetScalar<T>(string query) where T:new()
+        public T GetScalar<T>(string query) where T : new()
         {
-            MySqlDataReader reader = null;
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
             T result = new T();
             try
             {
-                result = (T)cmd.ExecuteScalar();               
+                result = (T)cmd.ExecuteScalar();
             }
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
-            }
-            finally
-            {
-                if (reader != null)
-                    reader.Close();
-            }
+                return default(T);
+            }            
             return result;
         }
         public long Update(string query)
         {
-            MySqlDataReader reader = null;
-            MySqlCommand cmd = new MySqlCommand(query, m_conn);
+            MySqlTransaction tr = m_conn.BeginTransaction();
+            MySqlCommand cmd = new MySqlCommand(query, m_conn, tr);
             long result = 0;
             try
             {
                 result = (long)cmd.ExecuteNonQuery();
+                tr.Commit();
             }
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
-            }
-            finally
-            {
-                if (reader != null)
-                    reader.Close();
-            }
+                try
+                {
+                    tr.Rollback();
+                }
+                catch (MySqlException extr)
+                {
+                    DCMessageBox.OkFail(extr.Message);
+                }
+            }            
             return result;
         }
     }
