@@ -61,8 +61,8 @@ namespace dcim.objects
         public static DCUser Get(string name)
         {
             //string query = string.Format("select id, version, uuid, create_time, name, email, allow_winauth, status, last_logon, info, full_name from dc_user where name='{0}'", name);
-            string query = string.Format("get_user('{0}')", name);
-            object s = DataProvider.GetScalar<object>("select logon('hqw')");
+            string query = string.Format("user_get('{0}')", name);
+            //object s = DataProvider.GetScalar<object>("select logon('hqw')");
             return DataProvider.SelectOne<DCUser>(query);
         }
         public static List<DCUser> GetList()
