@@ -15,18 +15,15 @@ namespace dcim.objects
         private int m_status;
         private MySqlDateTime m_last_logon;
         private string m_info;
-        private string m_full_name;
         public DCUser() { }
         public override void FromArray(object[] values)
         {
-            base.FromArray(values);
-            m_name = (string)values[5];
-            m_email = (string)values[6];
-            m_allow_winauth = (int)values[7];
-            m_status = (int)values[8];
-            m_last_logon = (MySqlDateTime)values[9];
-            m_info = (string)values[10];
-            m_full_name = (m_allow_winauth == 1) ? GetFullName() : (string)values[11];
+            base.FromArray(values);            
+            m_email = (string)values[7];
+            m_allow_winauth = (int)values[8];
+            m_status = (int)values[9];
+            m_last_logon = (MySqlDateTime)values[10];
+            m_info = (string)values[11];
         }        
 
         public static int Logon(string name, string password)
@@ -38,6 +35,7 @@ namespace dcim.objects
 
         private string GetFullName()
         {
+            // TODO: полное имя заполняем в базу при добавлении с опцией winauth
             using (DirectoryEntry domain = new DirectoryEntry(string.Format("WinNT://{0}/{1}", Environment.UserDomainName, Environment.UserName)))
             {
                 return domain.Properties["fullname"].Value.ToString();

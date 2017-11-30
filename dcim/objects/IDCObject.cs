@@ -12,5 +12,6 @@ namespace dcim.objects
         int TypeID { get; }
         int ObjectID { get; }
         string ObjectName { get; }
+        string ObjectFullName { get; }
     }
 }
