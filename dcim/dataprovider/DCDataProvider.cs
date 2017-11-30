@@ -102,6 +102,7 @@ namespace dcim.dataprovider
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
+                logger.Debug(ex.Message);
             }
             catch (Exception sysex)
             {
@@ -132,6 +133,7 @@ namespace dcim.dataprovider
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
+                logger.Debug(ex.Message);
                 return default(T);
             }
             catch (Exception sysex)
@@ -156,6 +158,7 @@ namespace dcim.dataprovider
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
+                logger.Debug(ex.Message);
                 return default(T);
             }            
             catch (Exception sysex)
@@ -184,6 +187,7 @@ namespace dcim.dataprovider
                 catch (MySqlException extr)
                 {
                     DCMessageBox.OkFail(extr.Message);
+                    logger.Debug(ex.Message);
                 }
                 catch (Exception sysex)
                 {
