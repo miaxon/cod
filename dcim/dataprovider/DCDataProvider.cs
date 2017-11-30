@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using dcim.dialogs;
-using dcim.objects;
-using System.Data;
+﻿using dcim.dialogs;
 using dcim.enums;
+using dcim.objects;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using static dcim.Program;
+using NLog;
 namespace dcim.dataprovider
 {
     public class DCDataProvider
@@ -24,7 +21,7 @@ namespace dcim.dataprovider
                                 "Character Set=utf8;" +
                                 "Convert Zero Datetime=True";
         private MySqlConnection m_conn;
-        
+        private Logger logger = LogManager.GetLogger("dataprovider");
         public DCDataProvider()
         {
             m_conn = new MySqlConnection(m_conn_string);
@@ -35,6 +32,7 @@ namespace dcim.dataprovider
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
+                logger.Debug(ex.Message);
                 return;
             }
             if (m_conn.State == ConnectionState.Open)
@@ -42,6 +40,7 @@ namespace dcim.dataprovider
                 m_conn.InfoMessage += M_conn_InfoMessage;
                 m_conn.StateChange += M_conn_StateChange;
             }
+            logger.Info(Info());
         }
         public string Info()
         {
@@ -70,7 +69,7 @@ namespace dcim.dataprovider
         private void M_conn_StateChange(object sender, StateChangeEventArgs e)
         {
             string msg = string.Format("MySql connection state changed from {0} to '{1}'", e.OriginalState, e.CurrentState);
-            //TODO: write log;
+            logger.Debug(msg);
         }
 
         private void M_conn_InfoMessage(object sender, MySqlInfoMessageEventArgs args)
@@ -80,7 +79,7 @@ namespace dcim.dataprovider
             foreach (var e in errors)
                 errstr += string.Format("{0} {1}", e.Code, e.Message) + Environment.NewLine;
             string msg = string.Format("MySql connection info message:{0} {1}", Environment.NewLine, errstr);
-            //TODO: write log;
+            logger.Debug(msg);
         }
         
         public List<T> Select<T>(string query) where T : IDCObject, new()

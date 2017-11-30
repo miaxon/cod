@@ -32,6 +32,7 @@ namespace dcim.dialogs
         {
             txt_username.Enabled = txt_password.Enabled = !chb_allow_winauth.Checked;
             txt_username.Text = Environment.UserName;
+            Properties.Settings.Default.username = Environment.UserName;
             Properties.Settings.Default.allow_winauth = chb_allow_winauth.Checked;
             Properties.Settings.Default.Save();
         }
