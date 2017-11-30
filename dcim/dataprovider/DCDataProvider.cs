@@ -196,6 +196,26 @@ namespace dcim.dataprovider
             }            
             return result;
         }
+        public DataTable GetTable(string query)
+        {
+            DataTable dt = new DataTable();
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            try
+            {
+                da.Fill(dt);
+            }
+            catch (MySqlException ex)
+            {
+                DCMessageBox.OkFail(ex.Message);
+                logger.Debug(ex.Message);
+            }
+            catch (Exception sysex)
+            {
+                DCMessageBox.OkFail(sysex.Message);
+            }
+            return dt;
+        }
         public void Log<T>(T o, DCAction a, string p="") where T : IDCObject, new()
         {
             string query = string.Format("call log({0}, {1}, {2}, {3}, '{4}', '{5}')", CurrentUser.ObjectID, (int)a, o.TypeID, o.ObjectID, o.ObjectFullName, p);

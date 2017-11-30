@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using dcim.enums;
 using NLog;
+using System.Data;
+using MySql.Data.Types;
 
 namespace dcim
 {
@@ -38,7 +40,9 @@ namespace dcim
                     goto auth;
                 }
                 else
-                {
+                {                    
+                    string q = string.Format("call log_view(1, 100, '{0}', '{1}')", DateTime.Now.AddHours(-4), DateTime.Now);
+                    DataTable dt = DataProvider.GetTable(q);
                     Properties.Settings.Default.Save();
                     CurrentUser = DCUser.Get(tuple.Item1);
                     DataProvider.Log(CurrentUser, DCAction.Logon);
