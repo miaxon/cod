@@ -195,7 +195,7 @@ namespace dcim.dataprovider
         }
         public void Log<T>(T o, DCAction a, string p="") where T : IDCObject, new()
         {
-            string query = string.Format("call log({0}, {1}, {2}, {3}, '{4}')", CurrentUser.ObjectID, (int)a, o.TypeID, o.ObjectID, p);
+            string query = string.Format("call log({0}, {1}, {2}, {3}, '{4}', '{5}')", CurrentUser.ObjectID, (int)a, o.TypeID, o.ObjectID, o.ObjectName, p);
             Update(query);
         }
     }

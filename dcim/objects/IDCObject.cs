@@ -11,5 +11,6 @@ namespace dcim.objects
         void FromArray(object[] values);
         int TypeID { get; }
         int ObjectID { get; }
+        string ObjectName { get; }
     }
 }

@@ -32,5 +32,9 @@ namespace dcim.objects
         {
             get { return m_id; }
         }
+        public string ObjectName
+        {
+            get { return m_name; }
+        }
     }
 }
