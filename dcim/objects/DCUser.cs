@@ -34,22 +34,13 @@ namespace dcim.objects
             m_status = (int)values[7];
             m_last_logon = (MySqlDateTime)values[8];
             m_info = (string)values[9];
-            m_full_name = (string)values[10];
+            m_full_name = (m_allow_winauth == 1) ? GetFullName() : (string)values[10];
         }
-        private void Logon()
+        public static int Logon(string name, string password)
         {
-            if (m_allow_winauth == 1)
-                m_full_name = GetFullName();
-            string query = string.Format("update dc_user set last_logon=CURRENT_TIMESTAMP where id={0}", m_id);
-            DataProvider.Update(query);
-            DCSession s = DCSession.Get(m_id, Properties.Settings.Default.ssid);
-            if (s != null)
-            {
-                DataProvider.Session = s;
-                Properties.Settings.Default.username = m_name;
-                Properties.Settings.Default.ssid = s.Ssid;
-                Properties.Settings.Default.Save();
-            }
+            string query = string.Format("select logon('{0}','{1}')", name, password);
+            int result = DataProvider.GetScalar<int>(query);
+            return result;
         }
 
         public static string GetFullName()
@@ -61,31 +52,17 @@ namespace dcim.objects
         }
 
         public static DCUser Get(string name)
-        {
-            string query = string.Format("select id, version, uuid, create_time, name, email, allow_winauth, status, last_logon, info, full_name from dc_user where name='{0}'", name);
-            return DataProvider.SelectOne<DCUser>(query);
+        {            
+            string query = string.Format("call user_get('{0}')", name);
+            DCUser result = DataProvider.SelectOne<DCUser>(query);
+            return result;
         }
         public static List<DCUser> GetList()
         {
-            string query = string.Format("select * from dc_user");
-            return DataProvider.Select<DCUser>(query);
+            string query = string.Format("call user_list()");
+            List<DCUser> result = DataProvider.Select<DCUser>(query);
+            return result;
         }
-
-        public bool Auth(string password)
-        {
-            if (m_allow_winauth == 1)
-            {
-                Logon();
-                return true;
-            }
-            string query = string.Format("select count(*) from dc_user where name='{0}' and passwd=SHA2('{1}', 256)", m_name, password);
-            bool sucsess = DataProvider.GetScalar<long>(query) == 1;
-            if (sucsess)
-            {
-                Logon();
-                return true;
-            }
-            return false;
-        }
+        
     }
 }

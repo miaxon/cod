@@ -1,0 +1,66 @@
+CREATE DEFINER=`dc_admin`@`%` PROCEDURE `session_clear`()
+    MODIFIES SQL DATA
+    DETERMINISTIC
+BEGIN
+DECLARE timeout INT DEFAULT 0;  
+  select `value` into timeout from `dc_cfg` where `key`='session_timeout';
+  delete from `dc_session` where `timestamp` < (CURRENT_TIMESTAMP() - timeout);
+END
+
+CREATE DEFINER=`dc_admin`@`%` FUNCTION `logon_ssid`(
+        `user_ssid` VARCHAR(255)
+    ) RETURNS int(11)
+    MODIFIES SQL DATA
+    DETERMINISTIC
+BEGIN  
+  DECLARE result INT DEFAULT 0;  
+  call session_clear();
+  select id into result from `dc_session` where `ssid`=user_ssid;
+  RETURN result;
+END
+
+CREATE DEFINER=`dc_admin`@`%` FUNCTION `logon`(
+        `user_name` VARCHAR(255),
+        `user_ssid` VARCHAR(255),
+        `user_password` VARCHAR(255)
+    ) RETURNS varchar(255) CHARSET utf8
+    DETERMINISTIC
+BEGIN
+  DECLARE session_id VARCHAR(255); 
+  DECLARE user_id INT;
+  DECLARE winauth INT;
+  
+  call session_clear();
+ 
+  select `id` into user_id from `dc_user` where `name`=user_name limit 1;  
+  
+  
+  IF user_id IS NOT NULL THEN
+    select `allow_winauth` into winauth from `dc_user` where `name`=user_name limit 1;
+    
+    IF winauth = 1 THEN
+      select `ssid` into session_id from `dc_session` where `ssid`=user_ssid limit 1;
+      IF session_id IS NULL THEN
+        insert into `dc_session` (`ssid`, `user_id`) values (UUID(), user_id);
+        select `ssid` into session_id from `dc_session` where `user_id`=user_id limit 1;
+      END IF;
+      update `dc_user` set `last_logon`=CURRENT_TIMESTAMP() where `name`=user_name;
+    END IF;
+    
+    IF winauth = 0 THEN
+      SET user_id = NULL;
+      select `id` into user_id from `dc_user` where `name`=user_name and `passwd`=sha2(user_password, 256) limit 1;
+      IF user_id IS NOT NULL THEN
+        select `ssid` into session_id from `dc_session` where `ssid`=user_ssid limit 1;
+        IF session_id IS NULL THEN      
+          insert into `dc_session` (`ssid`, `user_id`) values (UUID(), user_id);
+          select `ssid` into session_id from `dc_session` where `user_id`=user_id limit 1;
+        END IF;
+        update `dc_user` set `last_logon`=CURRENT_TIMESTAMP() where `name`=user_name;
+       END IF;
+     END IF;
+     
+  END IF;    
+  RETURN session_id;
+  
+END

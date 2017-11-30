@@ -8,14 +8,14 @@ using MySql.Data.MySqlClient;
 using dcim.dialogs;
 using dcim.objects;
 using System.Data;
-using NLog;
 
 namespace dcim.dataprovider
 {
     public class DCDataProvider : IDisposable
     {
-        private static Logger m_logger = LogManager.GetLogger("mysql");
-        private string m_conn_string = "server=10.0.225.117;" +
+        private string m_conn_string = 
+                                //"server=192.168.1.101;" +
+                                "server=10.0.225.111;" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
                                 "Allow User Variables=True;" +
@@ -23,7 +23,7 @@ namespace dcim.dataprovider
                                 "Character Set=utf8;" +
                                 "Convert Zero Datetime=True";
         private MySqlConnection m_conn;
-        public DCSession Session { get; set; }
+        
         public void Dispose()
         {
             m_conn.Dispose();
@@ -45,7 +45,6 @@ namespace dcim.dataprovider
                 m_conn.InfoMessage += M_conn_InfoMessage;
                 m_conn.StateChange += M_conn_StateChange;
             }
-            m_logger.Info(Info());
         }
         public string Info()
         {
@@ -56,10 +55,10 @@ namespace dcim.dataprovider
                 string source = m_conn.DataSource;
                 string state = m_conn.State.ToString();
                 return string.Format(
-                    "\nServer:   {0}\n" +
-                    "DataBase:   {1}\n" +
-                    "Source:     {2}\n" +
-                    "Connection: {3}",
+                    "Server:   {0}\n" +
+                    "DataBase: {1}\n" +
+                    "Source:   {2}\n" +
+                    "State:    {3}",
                     server,
                     db,
                     source,
@@ -86,15 +85,7 @@ namespace dcim.dataprovider
             string msg = string.Format("MySql connection info message:{0} {1}", Environment.NewLine, errstr);
             //TODO: write log;
         }
-
-        private bool CheckSession()
-        {
-            if (Session.IsValid)
-                return true;
-            return false;
-            //TODO: get new ssid if not valid;
-        }
-
+        
         public List<T> Select<T>(string query) where T : IDCObject, new()
         {
             List<T> dt = new List<T>();
@@ -116,6 +107,10 @@ namespace dcim.dataprovider
             {
                 DCMessageBox.OkFail(ex.Message);
             }
+            catch (Exception sysex)
+            {
+                DCMessageBox.OkFail(sysex.Message);
+            }            
             finally
             {
                 if (reader != null)
@@ -143,6 +138,11 @@ namespace dcim.dataprovider
                 DCMessageBox.OkFail(ex.Message);
                 return default(T);
             }
+            catch (Exception sysex)
+            {
+                DCMessageBox.OkFail(sysex.Message);
+                return default(T);
+            }
             finally
             {
                 if (reader != null)
@@ -152,18 +152,21 @@ namespace dcim.dataprovider
         }
         public T GetScalar<T>(string query) where T : new()
         {
-            MySqlCommand cmd = new MySqlCommand(query, m_conn);
-            T result = new T();
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);            
             try
             {
-                result = (T)cmd.ExecuteScalar();
+                return (T)cmd.ExecuteScalar();
             }
             catch (MySqlException ex)
             {
                 DCMessageBox.OkFail(ex.Message);
                 return default(T);
             }            
-            return result;
+            catch (Exception sysex)
+            {
+                DCMessageBox.OkFail(sysex.Message);
+                return default(T);
+            }
         }
         public long Update(string query)
         {
@@ -185,6 +188,10 @@ namespace dcim.dataprovider
                 catch (MySqlException extr)
                 {
                     DCMessageBox.OkFail(extr.Message);
+                }
+                catch (Exception sysex)
+                {
+                    DCMessageBox.OkFail(sysex.Message);
                 }
             }            
             return result;

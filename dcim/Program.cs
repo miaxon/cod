@@ -2,14 +2,17 @@
 using dcim.dialogs;
 using dcim.objects;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using NLog;
+
 namespace dcim
 {
     static class Program
     {
         public static DCDataProvider DataProvider = new DCDataProvider();
-        public static Logger LogProvider = LogManager.GetLogger("main");
+        public static DCUser CurrentUser;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -18,24 +21,26 @@ namespace dcim
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            LogProvider.Info("### Start ###");
+            
         auth: Tuple<string, string> tuple = ShowAuthDialog();
             if (tuple == null)
                 Application.Exit();
             else
             {
-                DCUser u = DCUser.Get(tuple.Item1);
-                if (u == null || !u.Auth(tuple.Item2))
+                if (DCUser.Logon(tuple.Item1, tuple.Item2) <= 0)
                 {
                     DCMessageBox.OkFail("Invalid user name or password.");
                     goto auth;
                 }
                 else
+                {
+                    CurrentUser = DCUser.Get(tuple.Item1);
                     Application.Run(new MainForm());
+                }
             }
         }
         static Tuple<string, string> ShowAuthDialog()
-        {            
+        {
             DCAuthDialog dlg = new DCAuthDialog();
             if (dlg.ShowDialog() == DialogResult.OK)
                 return new Tuple<string, string>(dlg.UserName, dlg.Password);            
