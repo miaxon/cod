@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using dcim.enums;
 namespace dcim
 {
     static class Program
@@ -35,7 +35,9 @@ namespace dcim
                 else
                 {
                     CurrentUser = DCUser.Get(tuple.Item1);
+                    DataProvider.Log(CurrentUser, DCAction.Logon);
                     Application.Run(new MainForm());
+                    DataProvider.Log(CurrentUser, DCAction.Logoff);
                 }
             }
         }

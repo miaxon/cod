@@ -8,14 +8,15 @@ using MySql.Data.MySqlClient;
 using dcim.dialogs;
 using dcim.objects;
 using System.Data;
-
+using dcim.enums;
+using static dcim.Program;
 namespace dcim.dataprovider
 {
-    public class DCDataProvider : IDisposable
+    public class DCDataProvider
     {
         private string m_conn_string = 
                                 //"server=192.168.1.101;" +
-                                "server=10.0.225.111;" +
+                                "server=10.0.225.117;" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
                                 "Allow User Variables=True;" +
@@ -24,10 +25,6 @@ namespace dcim.dataprovider
                                 "Convert Zero Datetime=True";
         private MySqlConnection m_conn;
         
-        public void Dispose()
-        {
-            m_conn.Dispose();
-        }
         public DCDataProvider()
         {
             m_conn = new MySqlConnection(m_conn_string);
@@ -81,7 +78,7 @@ namespace dcim.dataprovider
             MySqlError[] errors = args.errors;
             string errstr = "";
             foreach (var e in errors)
-                errstr += string.Format("{0} (1)", e.Code, e.Message) + Environment.NewLine;
+                errstr += string.Format("{0} {1}", e.Code, e.Message) + Environment.NewLine;
             string msg = string.Format("MySql connection info message:{0} {1}", Environment.NewLine, errstr);
             //TODO: write log;
         }
@@ -99,7 +96,7 @@ namespace dcim.dataprovider
                     object[] values = new object[reader.FieldCount];
                     reader.GetValues(values);
                     T t = new T();
-                    t.fromArray(values);
+                    t.FromArray(values);
                     dt.Add(t);
                 }
             }
@@ -130,7 +127,7 @@ namespace dcim.dataprovider
                 {
                     object[] values = new object[reader.FieldCount];
                     reader.GetValues(values);
-                    t.fromArray(values);
+                    t.FromArray(values);
                 }
             }
             catch (MySqlException ex)
@@ -195,6 +192,11 @@ namespace dcim.dataprovider
                 }
             }            
             return result;
+        }
+        public void Log<T>(T o, DCAction a, string p="") where T : IDCObject, new()
+        {
+            string query = string.Format("call log({0}, {1}, {2}, {3}, '{4}')", CurrentUser.ObjectID, (int)a, o.TypeID, o.ObjectID, p);
+            Update(query);
         }
     }
 }

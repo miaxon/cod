@@ -71,6 +71,7 @@
       <DependentUpon>DCBaseDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="dialogs\DCMessageBox.cs" />
+    <Compile Include="enums\DCEnums.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -78,7 +79,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="objects\DCSession.cs" />
+    <Compile Include="objects\DCObject.cs" />
     <Compile Include="objects\DCUser.cs" />
     <Compile Include="objects\IDCObject.cs" />
     <Compile Include="Program.cs" />

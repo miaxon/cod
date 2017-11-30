@@ -8,6 +8,8 @@ namespace dcim.objects
 {
     public interface IDCObject
     {
-        void fromArray(object[] values);
+        void FromArray(object[] values);
+        int TypeID { get; }
+        int ObjectID { get; }
     }
 }
