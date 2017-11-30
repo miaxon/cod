@@ -12,6 +12,7 @@ namespace dcim
     static class Program
     {
         public static DCDataProvider DataProvider = new DCDataProvider();
+        public static DCUser CurrentUser;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -26,14 +27,16 @@ namespace dcim
                 Application.Exit();
             else
             {
-                DCUser u = DCUser.Get(tuple.Item1);
-                if (u == null || !u.Auth(tuple.Item2))
+                if (DCUser.Logon(tuple.Item1, tuple.Item2) <= 0)
                 {
                     DCMessageBox.OkFail("Invalid user name or password.");
                     goto auth;
                 }
                 else
+                {
+                    CurrentUser = DCUser.Get(tuple.Item1);
                     Application.Run(new MainForm());
+                }
             }
         }
         static Tuple<string, string> ShowAuthDialog()

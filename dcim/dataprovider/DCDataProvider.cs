@@ -14,8 +14,8 @@ namespace dcim.dataprovider
     public class DCDataProvider : IDisposable
     {
         private string m_conn_string = 
-                                "server=192.168.1.101;" +
-                                //"server=10.0.225.117;" +
+                                //"server=192.168.1.101;" +
+                                "server=10.0.225.111;" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
                                 "Allow User Variables=True;" +
@@ -23,7 +23,7 @@ namespace dcim.dataprovider
                                 "Character Set=utf8;" +
                                 "Convert Zero Datetime=True";
         private MySqlConnection m_conn;
-        public DCSession Session { get; set; }
+        
         public void Dispose()
         {
             m_conn.Dispose();
@@ -85,15 +85,7 @@ namespace dcim.dataprovider
             string msg = string.Format("MySql connection info message:{0} {1}", Environment.NewLine, errstr);
             //TODO: write log;
         }
-
-        private bool CheckSession()
-        {
-            if (Session.IsValid)
-                return true;
-            return false;
-            //TODO: get new ssid if not valid;
-        }
-
+        
         public List<T> Select<T>(string query) where T : IDCObject, new()
         {
             List<T> dt = new List<T>();
@@ -115,6 +107,10 @@ namespace dcim.dataprovider
             {
                 DCMessageBox.OkFail(ex.Message);
             }
+            catch (Exception sysex)
+            {
+                DCMessageBox.OkFail(sysex.Message);
+            }            
             finally
             {
                 if (reader != null)
@@ -142,6 +138,11 @@ namespace dcim.dataprovider
                 DCMessageBox.OkFail(ex.Message);
                 return default(T);
             }
+            catch (Exception sysex)
+            {
+                DCMessageBox.OkFail(sysex.Message);
+                return default(T);
+            }
             finally
             {
                 if (reader != null)
@@ -161,6 +162,11 @@ namespace dcim.dataprovider
                 DCMessageBox.OkFail(ex.Message);
                 return default(T);
             }            
+            catch (Exception sysex)
+            {
+                DCMessageBox.OkFail(sysex.Message);
+                return default(T);
+            }
         }
         public long Update(string query)
         {
@@ -182,6 +188,10 @@ namespace dcim.dataprovider
                 catch (MySqlException extr)
                 {
                     DCMessageBox.OkFail(extr.Message);
+                }
+                catch (Exception sysex)
+                {
+                    DCMessageBox.OkFail(sysex.Message);
                 }
             }            
             return result;
