@@ -64,3 +64,21 @@ BEGIN
   RETURN session_id;
   
 END
+
+
+CREATE ALGORITHM=UNDEFINED DEFINER='admin'@'%' SQL SECURITY DEFINER VIEW `log_view`
+AS
+select
+  `dc_log`.`timestamp` AS `timestamp`,
+  `dc_log`.`remote_ip` AS `remote_ip`,
+  `dc_user`.`full_name` AS `name`,
+  `dc_action`.`name` AS `action`,
+  `dc_type`.`name` AS `type`,
+  `dc_log`.`object_id` AS `object_id`,
+  `dc_log`.`object_full_name` AS `object_full_name`,
+  `dc_log`.`params` AS `params`
+from
+  (((`dc_log`
+  join `dc_user` on ((`dc_log`.`user_id` = `dc_user`.`id`)))
+  join `dc_action` on ((`dc_log`.`action_id` = `dc_action`.`id`)))
+  join `dc_type` on ((`dc_log`.`type_id` = `dc_type`.`id`)));
