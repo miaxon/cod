@@ -14,16 +14,15 @@ namespace dcim.objects
         private int m_allow_winauth;
         private int m_status;
         private MySqlDateTime m_last_logon;
-        private string m_info;
+        
         public DCUser() { }
         public override void FromArray(object[] values)
         {
             base.FromArray(values);            
-            m_email = (string)values[7];
-            m_allow_winauth = (int)values[8];
-            m_status = (int)values[9];
-            m_last_logon = (MySqlDateTime)values[10];
-            m_info = (string)values[11];
+            m_email = (string)values[8];
+            m_allow_winauth = (int)values[9];
+            m_status = (int)values[10];
+            m_last_logon = (MySqlDateTime)values[11];
         }        
 
         public static int Logon(string name, string password)

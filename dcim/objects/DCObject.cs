@@ -13,9 +13,10 @@ namespace dcim.objects
         protected int m_version;
         protected string m_uuid;
         protected int m_type_id;
-        protected MySqlDateTime m_create_time; 
+        protected MySqlDateTime m_create_time;
         protected string m_name;
         protected string m_full_name;
+        protected string m_info;
         public virtual void FromArray(object[] values)
         {
             m_id = (int)values[0];
@@ -24,10 +25,11 @@ namespace dcim.objects
             m_type_id = (int)values[3];
             m_create_time = (MySqlDateTime)values[4];
             m_name = (string)values[5];
-            m_full_name = (string)values[6];           
+            m_full_name = (string)values[6];
+            m_info = (string)values[7];
         }
 
-        public int TypeID
+        public int ObjectTypeID
         {
             get { return m_type_id; }
         }
@@ -41,7 +43,11 @@ namespace dcim.objects
         }
         public string ObjectFullName
         {
-            get { return m_full_name; }
+            get { return string.IsNullOrEmpty(m_full_name) ? m_name : m_full_name; }
+        }
+        public string ObjectInfo
+        {
+            get { return m_info; }
         }
     }
 }
