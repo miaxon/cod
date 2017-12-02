@@ -57,7 +57,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controls\DCTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="controls\DCTabControl.Designer.cs">
+      <DependentUpon>DCTabControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="dataprovider\DCDataProvider.cs" />
+    <Compile Include="controls\TabControlEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="controls\TabControlEx.Designer.cs">
+      <DependentUpon>TabControlEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="dialogs\DCAuthDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +96,18 @@
     <Compile Include="objects\IDCObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="views\DCUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="views\DCUser.Designer.cs">
+      <DependentUpon>DCUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\DCView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="views\DCView.Designer.cs">
+      <DependentUpon>DCView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="dialogs\DCAuthDialog.resx">
       <DependentUpon>DCAuthDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,6 +127,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="views\DCUser.resx">
+      <DependentUpon>DCUser.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="db\dc.mwb" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

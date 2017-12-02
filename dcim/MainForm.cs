@@ -16,5 +16,10 @@ namespace dcim
         {
             InitializeComponent();
         }
+
+        private void MainMenu_Click(object sender, EventArgs e)
+        {
+            dcTabControl.AddView((sender as ToolStripMenuItem).Name);
+        }
     }
 }
