@@ -56,13 +56,16 @@ namespace dcim.controls
             }
             ConstructorInfo ci = t.GetConstructor(System.Type.EmptyTypes);
             DCView view = ci.Invoke(new object[] { }) as DCView;
-            TabPage p = new TabPage(view.Title + "111111111111111111111111");
-            //TabPage p = new TabPage(view.Title);
-            p.Name = name;
-            p.Controls.Add(view);
+            TabPage p = CreatePage(view, name);
             this.TabPages.Add(p);
             this.SelectedTab = p;
-
+        }
+        private TabPage CreatePage(DCView view, string name)
+        {
+            TabPage p = new TabPage(view.Title);
+            p.Name = name;
+            p.Controls.Add(view);
+            return p;
         }
     }
 }

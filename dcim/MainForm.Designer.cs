@@ -33,6 +33,7 @@
             this.DCUser = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.dcTabControl = new dcim.controls.DCTabControl();
+            this.DCLog = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +50,8 @@
             // administrationToolStripMenuItem
             // 
             this.administrationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DCUser});
+            this.DCUser,
+            this.DCLog});
             this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
             this.administrationToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
             this.administrationToolStripMenuItem.Text = "Administration";
@@ -57,7 +59,7 @@
             // DCUser
             // 
             this.DCUser.Name = "DCUser";
-            this.DCUser.Size = new System.Drawing.Size(102, 22);
+            this.DCUser.Size = new System.Drawing.Size(152, 22);
             this.DCUser.Text = "Users";
             this.DCUser.Click += new System.EventHandler(this.MainMenu_Click);
             // 
@@ -80,6 +82,13 @@
             this.dcTabControl.SelectedIndex = 0;
             this.dcTabControl.Size = new System.Drawing.Size(1462, 559);
             this.dcTabControl.TabIndex = 2;
+            // 
+            // DCLog
+            // 
+            this.DCLog.Name = "DCLog";
+            this.DCLog.Size = new System.Drawing.Size(152, 22);
+            this.DCLog.Text = "Log";
+            this.DCLog.Click += new System.EventHandler(this.MainMenu_Click);
             // 
             // MainForm
             // 
@@ -106,6 +115,7 @@
         private System.Windows.Forms.ToolStripMenuItem DCUser;
         private System.Windows.Forms.StatusStrip statusBar;
         private controls.DCTabControl dcTabControl;
+        private System.Windows.Forms.ToolStripMenuItem DCLog;
     }
 }
 

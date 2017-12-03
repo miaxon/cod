@@ -12,8 +12,8 @@ namespace dcim.dataprovider
     public class DCDataProvider
     {
         private string m_conn_string = 
-                                //"server=192.168.1.101;" +
-                                "server=10.0.225.117;" +
+                                "server=192.168.1.101;" +
+                                //"server=10.0.225.117;" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
                                 "Allow User Variables=True;" +
