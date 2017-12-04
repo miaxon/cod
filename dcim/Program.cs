@@ -47,6 +47,7 @@ namespace dcim
                     CurrentUser = DCUser.Get(tuple.Item1);
                     DataProvider.Log(CurrentUser, DCAction.Logon);
                     DCLogger.Info("LogOn user " + CurrentUser.ObjectName);
+                    int i = DataProvider.FileAdd();
                     Application.Run(new MainForm());
                     DataProvider.Log(CurrentUser, DCAction.Logoff);
                     DCLogger.Info("LogOff user " + CurrentUser.ObjectName);
