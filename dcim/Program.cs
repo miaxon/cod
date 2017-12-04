@@ -41,12 +41,13 @@ namespace dcim
                 }
                 else
                 {                    
-                    string q = string.Format("call log_view(1, 100, '{0}', '{1}')", DateTime.Now.AddHours(-4), DateTime.Now);
-                    DataTable dt = DataProvider.GetTable(q);
+                    //string q = string.Format("call log_filter(1, 100, '{0}', '{1}')", DateTime.Now.AddHours(-4), DateTime.Now);
+                    //DataTable dt = DataProvider.GetTable(q);
                     Properties.Settings.Default.Save();
                     CurrentUser = DCUser.Get(tuple.Item1);
                     DataProvider.Log(CurrentUser, DCAction.Logon);
                     DCLogger.Info("LogOn user " + CurrentUser.ObjectName);
+                    DataProvider.FileAdd();
                     Application.Run(new MainForm());
                     DataProvider.Log(CurrentUser, DCAction.Logoff);
                     DCLogger.Info("LogOff user " + CurrentUser.ObjectName);

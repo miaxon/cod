@@ -28,7 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // DCTabControl
+            // 
+            this.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
+            this.ResumeLayout(false);
+
         }
 
         #endregion

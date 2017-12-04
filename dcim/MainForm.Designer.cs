@@ -31,9 +31,10 @@
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DCUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.DCLog = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.dcTabControl = new dcim.controls.DCTabControl();
-            this.DCLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.DCCod = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +52,8 @@
             // 
             this.administrationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DCUser,
-            this.DCLog});
+            this.DCLog,
+            this.DCCod});
             this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
             this.administrationToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
             this.administrationToolStripMenuItem.Text = "Administration";
@@ -62,6 +64,13 @@
             this.DCUser.Size = new System.Drawing.Size(152, 22);
             this.DCUser.Text = "Users";
             this.DCUser.Click += new System.EventHandler(this.MainMenu_Click);
+            // 
+            // DCLog
+            // 
+            this.DCLog.Name = "DCLog";
+            this.DCLog.Size = new System.Drawing.Size(152, 22);
+            this.DCLog.Text = "Log";
+            this.DCLog.Click += new System.EventHandler(this.MainMenu_Click);
             // 
             // statusBar
             // 
@@ -81,14 +90,15 @@
             this.dcTabControl.Name = "dcTabControl";
             this.dcTabControl.SelectedIndex = 0;
             this.dcTabControl.Size = new System.Drawing.Size(1462, 559);
+            this.dcTabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.dcTabControl.TabIndex = 2;
             // 
-            // DCLog
+            // DCCod
             // 
-            this.DCLog.Name = "DCLog";
-            this.DCLog.Size = new System.Drawing.Size(152, 22);
-            this.DCLog.Text = "Log";
-            this.DCLog.Click += new System.EventHandler(this.MainMenu_Click);
+            this.DCCod.Name = "DCCod";
+            this.DCCod.Size = new System.Drawing.Size(152, 22);
+            this.DCCod.Text = "Cod";
+            this.DCCod.Click += new System.EventHandler(this.MainMenu_Click);
             // 
             // MainForm
             // 
@@ -116,6 +126,7 @@
         private System.Windows.Forms.StatusStrip statusBar;
         private controls.DCTabControl dcTabControl;
         private System.Windows.Forms.ToolStripMenuItem DCLog;
+        private System.Windows.Forms.ToolStripMenuItem DCCod;
     }
 }
 

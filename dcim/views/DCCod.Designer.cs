@@ -1,6 +1,6 @@
 ﻿namespace dcim.views
 {
-    partial class DCLog
+    partial class DCCod
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,24 +29,49 @@
         private void InitializeComponent()
         {
             this.dataView = new dcim.controls.DCDataView();
+            this.pb = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataView
             // 
             this.dataView.DataSource = null;
-            this.dataView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataView.Location = new System.Drawing.Point(0, 0);
+            this.dataView.Location = new System.Drawing.Point(3, 14);
             this.dataView.Name = "dataView";
-            this.dataView.Size = new System.Drawing.Size(1502, 698);
+            this.dataView.Size = new System.Drawing.Size(945, 434);
             this.dataView.TabIndex = 0;
             // 
-            // DCLog
+            // pb
+            // 
+            this.pb.Location = new System.Drawing.Point(3, 3);
+            this.pb.Name = "pb";
+            this.pb.Size = new System.Drawing.Size(545, 434);
+            this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pb.TabIndex = 1;
+            this.pb.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.pb);
+            this.panel1.Location = new System.Drawing.Point(1029, 123);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(345, 257);
+            this.panel1.TabIndex = 2;
+            // 
+            // DCCod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataView);
-            this.Name = "DCLog";
+            this.Name = "DCCod";
             this.Size = new System.Drawing.Size(1502, 698);
-            this.Load += new System.EventHandler(this.DCLog_Load);
+            this.Load += new System.EventHandler(this.DCCod_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -54,5 +79,7 @@
         #endregion
 
         private controls.DCDataView dataView;
+        private System.Windows.Forms.PictureBox pb;
+        private System.Windows.Forms.Panel panel1;
     }
 }

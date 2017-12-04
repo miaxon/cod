@@ -7,13 +7,17 @@ using System.Collections.Generic;
 using System.Data;
 using static dcim.Program;
 using NLog;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+
 namespace dcim.dataprovider
 {
     public class DCDataProvider
     {
         private string m_conn_string = 
-                                "server=192.168.1.101;" +
-                                //"server=10.0.225.117;" +
+                                //"server=192.168.1.101;" +
+                                "server=10.0.225.117;" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
                                 "Allow User Variables=True;" +
@@ -220,6 +224,80 @@ namespace dcim.dataprovider
         {
             string query = string.Format("call log({0}, {1}, {2}, {3}, '{4}', '{5}')", CurrentUser.ObjectID, (int)a, o.ObjectTypeID, o.ObjectID, o.ObjectFullName, p);
             Update(query);
+        }
+
+        public string FileAdd()
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.AddExtension = true;
+            dlg.Multiselect = false;
+            if (dlg.ShowDialog() != DialogResult.OK)
+                return "";
+            string query;
+            long FileSize;
+            byte[] rawData;
+            FileStream fs;
+            fs = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
+            FileSize = fs.Length;
+
+            rawData = new byte[FileSize];
+            fs.Read(rawData, 0, (int)FileSize);
+            fs.Close();
+
+            query = "insert into `dc_file` (`name`, `data`, `size`) values (@fname, @fdata, @fsize)";
+            //query = "call file_add(@fname, @fdata, @fsize)";
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);
+            cmd.Parameters.AddWithValue("@fsize", (int)FileSize);
+            cmd.Parameters.AddWithValue("@fdata", rawData);
+            cmd.Parameters.AddWithValue("@fname", Path.GetFileName(dlg.FileName));
+            cmd.ExecuteNonQuery();
+            return Path.GetFileName(dlg.FileName);
+        }
+
+        public Image FileGet(string fname = null)
+        {
+            MySql.Data.MySqlClient.MySqlCommand cmd;
+            MySql.Data.MySqlClient.MySqlDataReader reader;
+            
+            cmd = new MySql.Data.MySqlClient.MySqlCommand();
+
+            string query;
+            int FileSize;
+            byte[] rawData;
+            
+            query = string.Format("call file_get('{0}')", fname);
+
+            try
+            {
+                
+
+                cmd.Connection = m_conn;
+                cmd.CommandText = query;
+
+                reader = cmd.ExecuteReader();
+
+                if (!reader.HasRows)
+                    throw new Exception("There are no BLOBs to save");
+
+                reader.Read();
+
+                FileSize = reader.GetInt32(reader.GetOrdinal("size"));
+                rawData = new byte[FileSize];
+
+                reader.GetBytes(reader.GetOrdinal("data"), 0, rawData, 0, FileSize);
+                
+                reader.Close();
+                //MemoryStream ms = new MemoryStream(rawData);
+                //Image x = Image.FromStream(ms);
+                Image x = (Bitmap)((new ImageConverter()).ConvertFrom(rawData));
+                return x;
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show("Error " + ex.Number + " has occurred: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
         }
     }
 }

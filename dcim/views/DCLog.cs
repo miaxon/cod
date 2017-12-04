@@ -13,11 +13,12 @@ namespace dcim.views
         public DCLog()
         {
             InitializeComponent();
+            m_title = "Log";
         }
 
         private void DCLog_Load(object sender, EventArgs e)
         {
-            DataTable dt = DataProvider.GetTable("select * from log_view");
+            DataTable dt = DataProvider.GetTable("call log_list()");
             dataView.DataSource = dt;
         }
     }

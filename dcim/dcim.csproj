@@ -102,6 +102,12 @@
     <Compile Include="objects\IDCObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="views\DCCod.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="views\DCCod.Designer.cs">
+      <DependentUpon>DCCod.cs</DependentUpon>
+    </Compile>
     <Compile Include="views\DCLog.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -123,6 +129,12 @@
     <EmbeddedResource Include="controls\DCDataView.resx">
       <DependentUpon>DCDataView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="controls\DCTabControl.resx">
+      <DependentUpon>DCTabControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="controls\TabControlEx.resx">
+      <DependentUpon>TabControlEx.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="dialogs\DCAuthDialog.resx">
       <DependentUpon>DCAuthDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -142,6 +154,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="views\DCCod.resx">
+      <DependentUpon>DCCod.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="views\DCLog.resx">
       <DependentUpon>DCLog.cs</DependentUpon>
     </EmbeddedResource>

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using static dcim.Program;
 namespace dcim.views
 {
     public partial class DCView : UserControl
@@ -23,6 +23,10 @@ namespace dcim.views
         public string Title
         {
             get { return m_title; }
+        }
+        public virtual void DGClick(string name)
+        {
+            
         }
     }
 }
