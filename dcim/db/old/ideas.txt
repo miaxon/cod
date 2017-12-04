@@ -199,3 +199,17 @@ from
 
 
         }
+
+SET @query = 'SELECT Col1, Col2... FROM Tab1, Tab2 WITH JOINS...';
+CASE pSearchType
+  WHEN 1 THEN
+    SET @where = 'Col1 = pInput1';
+  WHEN 2 THEN
+    SET @where = 'Col1 = pInput1 AND Col2 = pInput2';
+  WHEN 3 THEN
+    SET @where = 'Col1 = pInput1 ORDER BY Col4';
+END CASE;
+SET @sql = CONCAT(@query,' WHERE ',@where);
+PREPARE s FROM @sql;
+EXECUTE s;
+DEALLOCATE PREPARE s;

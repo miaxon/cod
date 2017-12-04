@@ -57,6 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controls\DCDataView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controls\DCDataView.Designer.cs">
+      <DependentUpon>DCDataView.cs</DependentUpon>
+    </Compile>
     <Compile Include="controls\DCTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -114,6 +120,9 @@
     <Compile Include="views\DCView.Designer.cs">
       <DependentUpon>DCView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="controls\DCDataView.resx">
+      <DependentUpon>DCDataView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="dialogs\DCAuthDialog.resx">
       <DependentUpon>DCAuthDialog.cs</DependentUpon>
     </EmbeddedResource>
