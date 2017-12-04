@@ -15,9 +15,9 @@ namespace dcim.dataprovider
 {
     public class DCDataProvider
     {
-        private string m_conn_string = 
-                                //"server=192.168.1.101;" +
-                                "server=10.0.225.117;" +
+        private string m_conn_string =
+                                "server=192.168.1.101;" +
+                                //"server=10.0.225.117;" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
                                 "Allow User Variables=True;" +
@@ -85,7 +85,7 @@ namespace dcim.dataprovider
             string msg = string.Format("MySql connection info message:{0} {1}", Environment.NewLine, errstr);
             logger.Debug(msg);
         }
-        
+
         public List<T> Select<T>(string query) where T : IDCObject, new()
         {
             List<T> dt = new List<T>();
@@ -111,7 +111,7 @@ namespace dcim.dataprovider
             catch (Exception sysex)
             {
                 DCMessageBox.OkFail(sysex.Message);
-            }            
+            }
             finally
             {
                 if (reader != null)
@@ -148,13 +148,13 @@ namespace dcim.dataprovider
             finally
             {
                 if (reader != null)
-                    reader.Close();               
+                    reader.Close();
             }
             return t;
         }
         public T GetScalar<T>(string query) where T : new()
         {
-            MySqlCommand cmd = new MySqlCommand(query, m_conn);            
+            MySqlCommand cmd = new MySqlCommand(query, m_conn);
             try
             {
                 return (T)cmd.ExecuteScalar();
@@ -164,7 +164,7 @@ namespace dcim.dataprovider
                 DCMessageBox.OkFail(ex.Message);
                 logger.Debug(ex.Message);
                 return default(T);
-            }            
+            }
             catch (Exception sysex)
             {
                 DCMessageBox.OkFail(sysex.Message);
@@ -197,7 +197,7 @@ namespace dcim.dataprovider
                 {
                     DCMessageBox.OkFail(sysex.Message);
                 }
-            }            
+            }
             return result;
         }
         public DataTable GetTable(string query)
@@ -218,86 +218,91 @@ namespace dcim.dataprovider
             {
                 DCMessageBox.OkFail(sysex.Message);
             }
+            finally
+            {
+                da.Dispose();
+            }
             return dt;
         }
-        public void Log<T>(T o, DCAction a, string p="") where T : IDCObject, new()
+        public void Log<T>(T o, DCAction a, string p = "") where T : IDCObject, new()
         {
             string query = string.Format("call log({0}, {1}, {2}, {3}, '{4}', '{5}')", CurrentUser.ObjectID, (int)a, o.ObjectTypeID, o.ObjectID, o.ObjectFullName, p);
             Update(query);
         }
 
-        public string FileAdd()
+        public int FileAdd()
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.AddExtension = true;
             dlg.Multiselect = false;
             if (dlg.ShowDialog() != DialogResult.OK)
-                return "";
-            string query;
-            long FileSize;
-            byte[] rawData;
-            FileStream fs;
-            fs = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
-            FileSize = fs.Length;
-
-            rawData = new byte[FileSize];
-            fs.Read(rawData, 0, (int)FileSize);
+                return -1;
+            string fname = Path.GetFileName(dlg.FileName);
+            FileStream fs = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
+            long fsize = fs.Length;
+            byte[] fdata = new byte[fsize];
+            fs.Read(fdata, 0, (int)fsize);
             fs.Close();
 
-            query = "insert into `dc_file` (`name`, `data`, `size`) values (@fname, @fdata, @fsize)";
-            //query = "call file_add(@fname, @fdata, @fsize)";
+            //string query = "insert into `dc_file` (`name`, `data`, `size`) values (@fname, @fdata, @fsize)";
+            string query = "call file_add(@fname, @fdata, @fsize)";
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
-            cmd.Parameters.AddWithValue("@fsize", (int)FileSize);
-            cmd.Parameters.AddWithValue("@fdata", rawData);
-            cmd.Parameters.AddWithValue("@fname", Path.GetFileName(dlg.FileName));
-            cmd.ExecuteNonQuery();
-            return Path.GetFileName(dlg.FileName);
-        }
-
-        public Image FileGet(string fname = null)
-        {
-            MySql.Data.MySqlClient.MySqlCommand cmd;
-            MySql.Data.MySqlClient.MySqlDataReader reader;
-            
-            cmd = new MySql.Data.MySqlClient.MySqlCommand();
-
-            string query;
-            int FileSize;
-            byte[] rawData;
-            
-            query = string.Format("call file_get('{0}')", fname);
-
+            cmd.Parameters.AddWithValue("@fsize", (int)fsize);
+            cmd.Parameters.AddWithValue("@fdata", fdata);
+            cmd.Parameters.AddWithValue("@fname", fname);
             try
             {
-                
+                cmd.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                DCMessageBox.OkFail(ex.Message);
+            }
+            catch (Exception sysex)
+            {
+                DCMessageBox.OkFail(sysex.Message);
+            }
+            return GetScalar<int>(string.Format("select id from dc_file where name='{0}'", fname));
+        }
 
-                cmd.Connection = m_conn;
-                cmd.CommandText = query;
-
+        public Image FileGet(string fname)
+        {
+            string query = string.Format("call file_get('{0}')", fname);
+            MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(query, m_conn);
+            MySqlDataReader reader = null;
+            Image result = null;
+            try
+            {
                 reader = cmd.ExecuteReader();
-
                 if (!reader.HasRows)
-                    throw new Exception("There are no BLOBs to save");
-
+                {
+                    DCMessageBox.OkFail("There are no BLOBs to load");
+                    return null;
+                };
                 reader.Read();
+                int fsize = reader.GetInt32(reader.GetOrdinal("size"));
+                byte[] fdata = new byte[fsize];
 
-                FileSize = reader.GetInt32(reader.GetOrdinal("size"));
-                rawData = new byte[FileSize];
-
-                reader.GetBytes(reader.GetOrdinal("data"), 0, rawData, 0, FileSize);
+                reader.GetBytes(reader.GetOrdinal("data"), 0, fdata, 0, fsize);
                 
-                reader.Close();
                 //MemoryStream ms = new MemoryStream(rawData);
                 //Image x = Image.FromStream(ms);
-                Image x = (Bitmap)((new ImageConverter()).ConvertFrom(rawData));
-                return x;
+                result = (Bitmap)((new ImageConverter()).ConvertFrom(fdata));
             }
-            catch (MySql.Data.MySqlClient.MySqlException ex)
+            catch (MySqlException ex)
             {
-                MessageBox.Show("Error " + ex.Number + " has occurred: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DCMessageBox.OkFail(ex.Message);
             }
-            return null;
+            catch (Exception sysex)
+            {
+                DCMessageBox.OkFail(sysex.Message);
+            }
+            finally
+            {
+                if(reader != null)
+                    reader.Close();
+            }
+            return result;
         }
     }
 }
