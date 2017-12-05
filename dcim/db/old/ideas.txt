@@ -213,3 +213,19 @@ SET @sql = CONCAT(@query,' WHERE ',@where);
 PREPARE s FROM @sql;
 EXECUTE s;
 DEALLOCATE PREPARE s;
+
+	    OpenFileDialog dlg = new OpenFileDialog();
+            dlg.AddExtension = true;
+            dlg.Multiselect = false;
+            if (dlg.ShowDialog() != DialogResult.OK)
+                return -1;
+            string fname = Path.GetFileName(dlg.FileName);
+            FileStream fs = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
+            long fsize = fs.Length;
+            byte[] fdata = new byte[fsize];
+            fs.Read(fdata, 0, (int)fsize);
+            fs.Close();
+
+		//MemoryStream ms = new MemoryStream(rawData);
+                //Image x = Image.FromStream(ms);
+                result = (Bitmap)((new ImageConverter()).ConvertFrom(fdata));
