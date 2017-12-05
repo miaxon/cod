@@ -1,15 +1,5 @@
-﻿using dcim.dialogs;
-using dcim.views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace dcim.controls
@@ -17,15 +7,17 @@ namespace dcim.controls
     public partial class TabControlEx : TabControl
     {
         protected ContextMenu m_pageMenu = new ContextMenu();
+        private Font m_font;
         public TabControlEx()
         {
             InitializeComponent();
             this.DrawMode = TabDrawMode.OwnerDrawFixed;
-            
+            m_font = new Font(this.Font, FontStyle.Bold);
+
         }
         protected override void OnControlAdded(ControlEventArgs e)
         {
-            e.Control.Text = "   " + e.Control.Text + "         ";
+            e.Control.Text = string.Format("   {0}                 ", e.Control.Text);
             base.OnControlAdded(e);
         }
         protected virtual void TabClosed(int index)
@@ -103,7 +95,8 @@ namespace dcim.controls
                     stringFormat.Trimming = StringTrimming.EllipsisCharacter;
                     //tabTextArea = new RectangleF(tabTextArea.X, tabTextArea.Y, tabTextArea.Width,
                     //               tabTextArea.Height);
-                    e.Graphics.DrawString(str, this.Font, System.Drawing.SystemBrushes.ControlDark, tabTextArea, stringFormat);
+
+                    e.Graphics.DrawString(str, m_font, System.Drawing.SystemBrushes.ControlDark, tabTextArea, stringFormat);
                 }
                 else
 
@@ -135,15 +128,15 @@ namespace dcim.controls
                         }
 
                         //Drawing menu button
-                         _ColorBlend.Colors = new Color[]{SystemColors.ControlLightLight,
+                        _ColorBlend.Colors = new Color[]{SystemColors.ControlLightLight,
                                                       Color.FromArgb(255,SystemColors.ControlLight),SystemColors.ControlDark,
                                                       SystemColors.ControlLightLight};
-                         _ColorBlend.Positions = new float[] { 0f, .4f, 0.5f, 1f };
-                         _Brush.InterpolationColors = _ColorBlend;
+                        _ColorBlend.Positions = new float[] { 0f, .4f, 0.5f, 1f };
+                        _Brush.InterpolationColors = _ColorBlend;
                         _ColorBlend.Colors = new Color[]{Color.FromArgb(255,170,213,243),
                                                       Color.FromArgb(255,170,213,243),Color.FromArgb(255,44,137,191),
                                                       Color.FromArgb(255,44,137,191)};
-                         _Brush.InterpolationColors = _ColorBlend;
+                        _Brush.InterpolationColors = _ColorBlend;
                         e.Graphics.FillRectangle(_Brush, tabTextArea.X + tabTextArea.Width - 43, 4, tabTextArea.Height - 3, tabTextArea.Height - 5);
                         e.Graphics.DrawRectangle(Pens.White, tabTextArea.X + tabTextArea.Width - 41, 6, tabTextArea.Height - 7, tabTextArea.Height - 9);
                         using (Pen pen = new Pen(Color.White, 2))
@@ -161,9 +154,9 @@ namespace dcim.controls
                     stringFormat.Trimming = StringTrimming.EllipsisCharacter;
                     //tabTextArea = new RectangleF(tabTextArea.X, tabTextArea.Y, tabTextArea.Width,
                     //               tabTextArea.Height);
-                    e.Graphics.DrawString(str, this.Font, System.Drawing.SystemBrushes.ControlText, tabTextArea, stringFormat);
+                    e.Graphics.DrawString(str, m_font, System.Drawing.SystemBrushes.ControlText, tabTextArea, stringFormat);
                 }
-                
+
 
             }
         }

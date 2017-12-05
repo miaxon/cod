@@ -32,9 +32,9 @@
             this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DCUser = new System.Windows.Forms.ToolStripMenuItem();
             this.DCLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.DCCod = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.dcTabControl = new dcim.controls.DCTabControl();
-            this.DCCod = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,16 +61,23 @@
             // DCUser
             // 
             this.DCUser.Name = "DCUser";
-            this.DCUser.Size = new System.Drawing.Size(152, 22);
+            this.DCUser.Size = new System.Drawing.Size(102, 22);
             this.DCUser.Text = "Users";
             this.DCUser.Click += new System.EventHandler(this.MainMenu_Click);
             // 
             // DCLog
             // 
             this.DCLog.Name = "DCLog";
-            this.DCLog.Size = new System.Drawing.Size(152, 22);
+            this.DCLog.Size = new System.Drawing.Size(102, 22);
             this.DCLog.Text = "Log";
             this.DCLog.Click += new System.EventHandler(this.MainMenu_Click);
+            // 
+            // DCCod
+            // 
+            this.DCCod.Name = "DCCod";
+            this.DCCod.Size = new System.Drawing.Size(102, 22);
+            this.DCCod.Text = "Cod";
+            this.DCCod.Click += new System.EventHandler(this.MainMenu_Click);
             // 
             // statusBar
             // 
@@ -84,7 +91,7 @@
             // 
             this.dcTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dcTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.dcTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dcTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dcTabControl.ItemSize = new System.Drawing.Size(60, 24);
             this.dcTabControl.Location = new System.Drawing.Point(0, 24);
             this.dcTabControl.Name = "dcTabControl";
@@ -92,13 +99,6 @@
             this.dcTabControl.Size = new System.Drawing.Size(1462, 559);
             this.dcTabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.dcTabControl.TabIndex = 2;
-            // 
-            // DCCod
-            // 
-            this.DCCod.Name = "DCCod";
-            this.DCCod.Size = new System.Drawing.Size(152, 22);
-            this.DCCod.Text = "Cod";
-            this.DCCod.Click += new System.EventHandler(this.MainMenu_Click);
             // 
             // MainForm
             // 
