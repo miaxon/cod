@@ -11,6 +11,9 @@ namespace dcim.dialogs
             InitializeComponent();
             chb_allow_winauth.Checked = Properties.Settings.Default.allow_winauth;
             txt_username.Text = Properties.Settings.Default.username;
+            txt_server.Text = Properties.Settings.Default.server;
+            if (Properties.Settings.Default.server != "" && Properties.Settings.Default.username != "")
+                txt_password.Focus();
         }
         public string UserName
         {
@@ -20,6 +23,11 @@ namespace dcim.dialogs
         public string Password
         {
             get { return txt_password.Text; }
+        }
+
+        public string Server
+        {
+            get { return txt_server.Text; }
         }
 
         private void M_txt_password_KeyDown(object sender, KeyEventArgs e)

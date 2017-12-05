@@ -16,8 +16,7 @@ namespace dcim.dataprovider
     public class DCDataProvider
     {
         private string m_conn_string =
-                                "server=192.168.1.101;" +
-                                //"server=10.0.225.117;" +
+                                "server={0};" +
                                 "User Id=dc_admin;password=dc_admin;" +
                                 "database=dc;" +
                                 "Allow User Variables=True;" +
@@ -28,7 +27,13 @@ namespace dcim.dataprovider
         private Logger logger = LogManager.GetLogger("dataprovider");
         public DCDataProvider()
         {
+            
+        }
+        public bool Init(string server)
+        {
+            m_conn_string = string.Format(m_conn_string, server);
             m_conn = new MySqlConnection(m_conn_string);
+            bool result = false;
             try
             {
                 m_conn.Open();
@@ -37,14 +42,15 @@ namespace dcim.dataprovider
             {
                 DCMessageBox.OkFail(ex.Message);
                 logger.Debug(ex.Message);
-                return;
             }
             if (m_conn.State == ConnectionState.Open)
             {
                 m_conn.InfoMessage += M_conn_InfoMessage;
                 m_conn.StateChange += M_conn_StateChange;
+                result = true;
             }
             logger.Info(Info());
+            return result;
         }
         public string Info()
         {
@@ -224,35 +230,23 @@ namespace dcim.dataprovider
             }
             return dt;
         }
-        public void Log<T>(T o, DCAction a, string p = "") where T : IDCObject, new()
+        public void LogAdd<T>(T o, DCAction a, string p = "") where T : IDCObject, new()
         {
-            string query = string.Format("call log({0}, {1}, {2}, {3}, '{4}', '{5}')", CurrentUser.ObjectID, (int)a, o.ObjectTypeID, o.ObjectID, o.ObjectFullName, p);
+            string query = string.Format("call log_add({0}, {1}, {2}, {3}, '{4}', '{5}')", CurrentUser.ObjectID, (int)a, o.ObjectTypeID, o.ObjectID, o.ObjectFullName, p);
             Update(query);
         }
 
-        public int FileAdd()
+        public int FileAdd(string name, byte[] data, int size)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.AddExtension = true;
-            dlg.Multiselect = false;
-            if (dlg.ShowDialog() != DialogResult.OK)
-                return -1;
-            string fname = Path.GetFileName(dlg.FileName);
-            FileStream fs = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read);
-            long fsize = fs.Length;
-            byte[] fdata = new byte[fsize];
-            fs.Read(fdata, 0, (int)fsize);
-            fs.Close();
-
-            //string query = "insert into `dc_file` (`name`, `data`, `size`) values (@fname, @fdata, @fsize)";
             string query = "call file_add(@fname, @fdata, @fsize)";
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
-            cmd.Parameters.AddWithValue("@fsize", (int)fsize);
-            cmd.Parameters.AddWithValue("@fdata", fdata);
-            cmd.Parameters.AddWithValue("@fname", fname);
+            cmd.Parameters.AddWithValue("@fsize", size);
+            cmd.Parameters.AddWithValue("@fdata", data);
+            cmd.Parameters.AddWithValue("@fname", name);
+            int result = -1;
             try
             {
-                cmd.ExecuteNonQuery();
+                result = cmd.ExecuteNonQuery();
             }
             catch (MySqlException ex)
             {
@@ -262,32 +256,25 @@ namespace dcim.dataprovider
             {
                 DCMessageBox.OkFail(sysex.Message);
             }
-            return GetScalar<int>(string.Format("select id from dc_file where name='{0}'", fname));
+            return result;
         }
 
-        public Image FileGet(string fname)
+        public byte[] FileGet(string name)
         {
-            string query = string.Format("call file_get('{0}')", fname);
+            string query = string.Format("call file_get('{0}')", name);
             MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(query, m_conn);
             MySqlDataReader reader = null;
-            Image result = null;
+            byte[] data = null;
             try
             {
                 reader = cmd.ExecuteReader();
-                if (!reader.HasRows)
+                if (reader.Read())
                 {
-                    DCMessageBox.OkFail("There are no BLOBs to load");
-                    return null;
-                };
-                reader.Read();
-                int fsize = reader.GetInt32(reader.GetOrdinal("size"));
-                byte[] fdata = new byte[fsize];
-
-                reader.GetBytes(reader.GetOrdinal("data"), 0, fdata, 0, fsize);
-                
-                //MemoryStream ms = new MemoryStream(rawData);
-                //Image x = Image.FromStream(ms);
-                result = (Bitmap)((new ImageConverter()).ConvertFrom(fdata));
+                    int size = reader.GetInt32(reader.GetOrdinal("size"));
+                    data = new byte[size];
+                    reader.GetBytes(reader.GetOrdinal("data"), 0, data, 0, size);
+                };                                
+                return data;
             }
             catch (MySqlException ex)
             {
@@ -302,7 +289,7 @@ namespace dcim.dataprovider
                 if(reader != null)
                     reader.Close();
             }
-            return result;
+            return data;
         }
     }
 }

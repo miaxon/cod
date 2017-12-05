@@ -38,12 +38,12 @@ namespace dcim.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ssid {
+        public string server {
             get {
-                return ((string)(this["ssid"]));
+                return ((string)(this["server"]));
             }
             set {
-                this["ssid"] = value;
+                this["server"] = value;
             }
         }
         

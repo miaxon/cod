@@ -33,6 +33,8 @@
             this.txt_username = new System.Windows.Forms.TextBox();
             this.txt_password = new System.Windows.Forms.TextBox();
             this.chb_allow_winauth = new System.Windows.Forms.CheckBox();
+            this.txt_server = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -80,10 +82,28 @@
             this.chb_allow_winauth.UseVisualStyleBackColor = true;
             this.chb_allow_winauth.CheckedChanged += new System.EventHandler(this.M_chb_allow_winauth_CheckedChanged);
             // 
+            // txt_server
+            // 
+            this.txt_server.Location = new System.Drawing.Point(128, 126);
+            this.txt_server.Name = "txt_server";
+            this.txt_server.Size = new System.Drawing.Size(200, 20);
+            this.txt_server.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(88, 126);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Server:";
+            // 
             // DCAuthDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(409, 420);
+            this.Controls.Add(this.txt_server);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.chb_allow_winauth);
             this.Controls.Add(this.txt_password);
             this.Controls.Add(this.txt_username);
@@ -98,6 +118,8 @@
             this.Controls.SetChildIndex(this.txt_username, 0);
             this.Controls.SetChildIndex(this.txt_password, 0);
             this.Controls.SetChildIndex(this.chb_allow_winauth, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
+            this.Controls.SetChildIndex(this.txt_server, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,5 +132,7 @@
         private System.Windows.Forms.TextBox txt_username;
         private System.Windows.Forms.TextBox txt_password;
         private System.Windows.Forms.CheckBox chb_allow_winauth;
+        private System.Windows.Forms.TextBox txt_server;
+        private System.Windows.Forms.Label label3;
     }
 }

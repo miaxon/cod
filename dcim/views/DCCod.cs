@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using static dcim.Program;
 namespace dcim.views
 {
-    public partial class DCCod : dcim.views.DCView
+    public partial class DCCod : DCView
     {
         public DCCod()
         {
@@ -23,8 +18,7 @@ namespace dcim.views
         }
         public override void DGClick(string name)
         {
-            pb.Image = DataProvider.FileGet(name);
-            
+            //pb.Image = DataProvider.FileGet(name);            
         }        
     }
 }
