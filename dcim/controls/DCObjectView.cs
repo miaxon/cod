@@ -16,18 +16,6 @@ namespace dcim.controls
         {
             InitializeComponent();
         }        
-
-        public List<T> SelectedObjects<T>() where T : IDCObject, new()
-        {
-            List<T> list = new List<T>();
-            foreach (DataGridViewRow row in dgv.SelectedRows)
-            {
-                DataRowView dataRow = row.DataBoundItem as DataRowView;
-                T o = new T();
-                o.FromArray(dataRow.Row.ItemArray);
-                list.Add(o);
-            }
-            return list;
-        }
+        
     }
 }

@@ -51,5 +51,18 @@ namespace dcim.controls
                 }
             }
         }
+        public List<int> SelectedIndexes
+        {
+            get
+            {
+                List<int> list = new List<int>();
+                foreach (DataGridViewRow row in dgv.SelectedRows)
+                {
+                    DataRowView dataRow = row.DataBoundItem as DataRowView;
+                    list.Add((int)dataRow.Row.ItemArray[0]);
+                }
+                return list;
+            }
+        }
     }
 }

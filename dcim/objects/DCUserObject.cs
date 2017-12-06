@@ -13,24 +13,35 @@ namespace dcim.objects
     public class DCUserObject : DCObject
     {
         [Browsable(true)]
-        [Category("Text")]
+        [Category("Personal")]
         [ReadOnly(false)]
         [Description("User email")]
         [DisplayName("Email")]
+        [PropertyOrder(8)]
         public string Email { get; set; }
 
         [Browsable(true)]
-        [Category("Boolean")]
+        [Category("Security")]
         [ReadOnly(false)]
         [Description("Allow user login with windows credentials")]
         [DisplayName("AllowWinAuth")]
-        public bool AllowWinAuth { get; set; }        
+        [PropertyOrder(9)]
+        public bool AllowWinAuth { get; set; }
 
         [Browsable(true)]
-        [Category("Numeric")]
+        [Category("Security")]
+        [ReadOnly(false)]
+        [Description("User password")]
+        [PropertyOrder(10)]
+        [PasswordPropertyText(true)]
+        public string Password { get; set; }
+
+        [Browsable(true)]
+        [Category("Security")]
         [ReadOnly(false)]
         [Description("User status")]
         [TypeConverter(typeof(DCEnumConverter))]
+        [PropertyOrder(11)]
         public DCStatus Status { get; set; }
 
         [Browsable(true)]
@@ -38,9 +49,9 @@ namespace dcim.objects
         [ReadOnly(true)]
         [Description("Object creation time")]
         [DisplayName("LastLogon")]
+        [PropertyOrder(12)]
         public MySqlDateTime LastLogon { get; set; }
-
-
+               
 
         public DCUserObject()
         {
@@ -73,12 +84,20 @@ namespace dcim.objects
             }
         }
 
-        public static DCUserObject Get(string name)
+        public static DCUserObject Get(int id)
         {
-            string query = string.Format("call user_get('{0}')", name);
+            string query = string.Format("call user_get({0}, '{1}')", id, null);
             DCUserObject result = DataProvider.GetObject<DCUserObject>(query);
             return result;
         }
+
+        public static DCUserObject Get(string name)
+        {
+            string query = string.Format("call user_get({0}, '{1}')", -1, name);
+            DCUserObject result = DataProvider.GetObject<DCUserObject>(query);
+            return result;
+        }
+
         public static List<DCUserObject> GetList()
         {
             string query = string.Format("call user_list()");
@@ -99,9 +118,20 @@ namespace dcim.objects
                 Name, FullName, Email, Info, (int)Status, AllowWinAuth);
             DataProvider.Update(query);
         }
-        public void Delete()
+        public static void Delete(int id)
         {
-            string query = string.Format("call user_delete({0})", Id);
+            string query = string.Format("call user_delete({0})", id);
+            DataProvider.Update(query);
+        }
+
+        public void SetPassword(string password)
+        {
+            if(string.IsNullOrEmpty(password))
+            {
+                DCMessageBox.OkFail("Empty password is not permitted!");
+                return;
+            }
+            string query = string.Format("call user_password('{0}')", password);
             DataProvider.Update(query);
         }
     }

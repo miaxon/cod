@@ -95,6 +95,12 @@
       <DependentUpon>DCBaseDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="dialogs\DCMessageBox.cs" />
+    <Compile Include="dialogs\DCPropertyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dialogs\DCPropertyDialog.Designer.cs">
+      <DependentUpon>DCPropertyDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="dialogs\DCUserDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="dialogs\DCBaseDialog.resx">
       <DependentUpon>DCBaseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dialogs\DCPropertyDialog.resx">
+      <DependentUpon>DCPropertyDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dialogs\DCUserDialog.resx">
       <DependentUpon>DCUserDialog.cs</DependentUpon>

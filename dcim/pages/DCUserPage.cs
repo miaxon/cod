@@ -26,27 +26,31 @@ namespace dcim.pages
         }
         protected override void tbtn_edit_Click(object sender, EventArgs e)
         {
-            List<DCUserObject> list = view.SelectedObjects<DCUserObject>();
+            List<int> list = view.SelectedIndexes;
             if (list.Count == 0)
                 return;
-            DCUserObject o = list[0];
+            DCUserObject o = DCUserObject.Get(list[0]);
             if (o == null)
                 return;
             DCUserDialog dlg = new DCUserDialog();
             dlg.PropertyObject = o;
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                o.Save();
-                Upadate();
+                if (dlg.ChangedProperties.Count > 0)
+                {
+                    o.Save();
+                    Upadate();
+                    if (dlg.ChangedProperties.ContainsKey("Password"))
+                        o.SetPassword(dlg.ChangedProperties["Password"].ToString());
+                }
             }
         }
         protected override void tbtn_delete_Click(object sender, EventArgs e)
         {
-            List<DCUserObject> list = view.SelectedObjects<DCUserObject>();
+            List<int> list = view.SelectedIndexes;
             if (list.Count == 0)
                 return;
-            DCUserObject o = list[0];
-            o.Delete();
+            DCUserObject.Delete(list[0]);
             Upadate();
         }
     }
