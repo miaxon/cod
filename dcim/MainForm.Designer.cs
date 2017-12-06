@@ -30,9 +30,9 @@
         {
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DCUser = new System.Windows.Forms.ToolStripMenuItem();
-            this.DCLog = new System.Windows.Forms.ToolStripMenuItem();
-            this.DCCod = new System.Windows.Forms.ToolStripMenuItem();
+            this.DCUserPage = new System.Windows.Forms.ToolStripMenuItem();
+            this.DCLogPage = new System.Windows.Forms.ToolStripMenuItem();
+            this.DCCodPage = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.dcTabControl = new dcim.controls.DCTabControl();
             this.mainMenu.SuspendLayout();
@@ -51,33 +51,33 @@
             // administrationToolStripMenuItem
             // 
             this.administrationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DCUser,
-            this.DCLog,
-            this.DCCod});
+            this.DCUserPage,
+            this.DCLogPage,
+            this.DCCodPage});
             this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
             this.administrationToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
             this.administrationToolStripMenuItem.Text = "Administration";
             // 
-            // DCUser
+            // DCUserPage
             // 
-            this.DCUser.Name = "DCUser";
-            this.DCUser.Size = new System.Drawing.Size(102, 22);
-            this.DCUser.Text = "Users";
-            this.DCUser.Click += new System.EventHandler(this.MainMenu_Click);
+            this.DCUserPage.Name = "DCUserPage";
+            this.DCUserPage.Size = new System.Drawing.Size(152, 22);
+            this.DCUserPage.Text = "Users";
+            this.DCUserPage.Click += new System.EventHandler(this.MainMenu_Click);
             // 
-            // DCLog
+            // DCLogPage
             // 
-            this.DCLog.Name = "DCLog";
-            this.DCLog.Size = new System.Drawing.Size(102, 22);
-            this.DCLog.Text = "Log";
-            this.DCLog.Click += new System.EventHandler(this.MainMenu_Click);
+            this.DCLogPage.Name = "DCLogPage";
+            this.DCLogPage.Size = new System.Drawing.Size(152, 22);
+            this.DCLogPage.Text = "Log";
+            this.DCLogPage.Click += new System.EventHandler(this.MainMenu_Click);
             // 
-            // DCCod
+            // DCCodPage
             // 
-            this.DCCod.Name = "DCCod";
-            this.DCCod.Size = new System.Drawing.Size(102, 22);
-            this.DCCod.Text = "Cod";
-            this.DCCod.Click += new System.EventHandler(this.MainMenu_Click);
+            this.DCCodPage.Name = "DCCodPage";
+            this.DCCodPage.Size = new System.Drawing.Size(152, 22);
+            this.DCCodPage.Text = "Cod";
+            this.DCCodPage.Click += new System.EventHandler(this.MainMenu_Click);
             // 
             // statusBar
             // 
@@ -122,11 +122,11 @@
 
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem administrationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem DCUser;
+        private System.Windows.Forms.ToolStripMenuItem DCUserPage;
         private System.Windows.Forms.StatusStrip statusBar;
         private controls.DCTabControl dcTabControl;
-        private System.Windows.Forms.ToolStripMenuItem DCLog;
-        private System.Windows.Forms.ToolStripMenuItem DCCod;
+        private System.Windows.Forms.ToolStripMenuItem DCLogPage;
+        private System.Windows.Forms.ToolStripMenuItem DCCodPage;
     }
 }
 

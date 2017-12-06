@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using dcim.views;
+using dcim.pages;
+using dcim.objects;
 
 namespace dcim.controls
 {
@@ -46,14 +47,9 @@ namespace dcim.controls
                     bs.DataSource = value;
                     dgv.Columns[dgv.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     foreach (DataGridViewColumn c in dgv.Columns)
-                        c.Visible = !c.Name.Contains("_");
+                        c.Visible = !c.Name.StartsWith("_");
                 }
             }
-        }
-
-        private void dgv_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            (this.Parent as DCView).DGClick(dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
         }
     }
 }

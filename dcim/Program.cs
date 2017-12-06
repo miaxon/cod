@@ -16,7 +16,7 @@ namespace dcim
     static class Program
     {
         public static DCDataProvider DataProvider = new DCDataProvider();
-        public static DCUser CurrentUser;
+        public static DCUserObject CurrentUser;
         public static Logger DCLogger = LogManager.GetLogger("main");
         /// <summary>
         /// Главная точка входа для приложения.
@@ -39,7 +39,7 @@ namespace dcim
                     goto auth;
                 }
                 Properties.Settings.Default.username = tuple.Item2;                
-                if (DCUser.Logon(tuple.Item2, tuple.Item3) <= 0)
+                if (DCUserObject.Logon(tuple.Item2, tuple.Item3) <= 0)
                 {
                     DCMessageBox.OkFail("Invalid user name or password.");
                     DCLogger.Info("Failure LogOn user " + tuple.Item2);
@@ -50,7 +50,7 @@ namespace dcim
                     //string q = string.Format("call log_filter(1, 100, '{0}', '{1}')", DateTime.Now.AddHours(-4), DateTime.Now);
                     //DataTable dt = DataProvider.GetTable(q);
                     Properties.Settings.Default.Save();
-                    CurrentUser = DCUser.Get(tuple.Item2);
+                    CurrentUser = DCUserObject.Get(tuple.Item2);
                     DataProvider.LogAdd(CurrentUser, DCAction.Logon);
                     DCLogger.Info("LogOn user " + CurrentUser.ObjectName);
                     Application.Run(new MainForm());

@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static dcim.Program;
-namespace dcim.views
+namespace dcim.pages
 {
-    public partial class DCView : UserControl
+    public partial class DCPage : UserControl
     {
-
         protected string m_title = "Base view for DC objects";
-        public DCView()
+        protected string m_view_name;
+        public DCPage()
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
@@ -23,10 +23,7 @@ namespace dcim.views
         public string Title
         {
             get { return m_title; }
-        }
-        public virtual void DGClick(string name)
-        {
-            
-        }
+        }        
+        
     }
 }

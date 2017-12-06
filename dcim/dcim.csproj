@@ -63,6 +63,12 @@
     <Compile Include="controls\DCDataView.Designer.cs">
       <DependentUpon>DCDataView.cs</DependentUpon>
     </Compile>
+    <Compile Include="controls\DCObjectView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controls\DCObjectView.Designer.cs">
+      <DependentUpon>DCObjectView.cs</DependentUpon>
+    </Compile>
     <Compile Include="controls\DCTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -89,6 +95,12 @@
       <DependentUpon>DCBaseDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="dialogs\DCMessageBox.cs" />
+    <Compile Include="dialogs\DCUserDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dialogs\DCUserDialog.Designer.cs">
+      <DependentUpon>DCUserDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="enums\DCEnums.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
@@ -98,33 +110,39 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="objects\DCObject.cs" />
-    <Compile Include="objects\DCUser.cs" />
+    <Compile Include="objects\DCUserObject.cs" />
     <Compile Include="objects\IDCObject.cs" />
+    <Compile Include="pages\DCUserPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="pages\DCUserPage.Designer.cs">
+      <DependentUpon>DCUserPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="views\DCCod.cs">
+    <Compile Include="pages\DCCodPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="views\DCCod.Designer.cs">
-      <DependentUpon>DCCod.cs</DependentUpon>
+    <Compile Include="pages\DCCodPage.Designer.cs">
+      <DependentUpon>DCCodPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="views\DCLog.cs">
+    <Compile Include="pages\DCLogPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="views\DCLog.Designer.cs">
-      <DependentUpon>DCLog.cs</DependentUpon>
+    <Compile Include="pages\DCLogPage.Designer.cs">
+      <DependentUpon>DCLogPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="views\DCUser.cs">
+    <Compile Include="pages\base\DCObjectPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="views\DCUser.Designer.cs">
-      <DependentUpon>DCUser.cs</DependentUpon>
+    <Compile Include="pages\base\DCObjectPage.Designer.cs">
+      <DependentUpon>DCObjectPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="views\DCView.cs">
+    <Compile Include="pages\base\DCPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="views\DCView.Designer.cs">
-      <DependentUpon>DCView.cs</DependentUpon>
+    <Compile Include="pages\base\DCPage.Designer.cs">
+      <DependentUpon>DCPage.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="controls\DCDataView.resx">
       <DependentUpon>DCDataView.cs</DependentUpon>
@@ -141,8 +159,14 @@
     <EmbeddedResource Include="dialogs\DCBaseDialog.resx">
       <DependentUpon>DCBaseDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="dialogs\DCUserDialog.resx">
+      <DependentUpon>DCUserDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pages\DCUserPage.resx">
+      <DependentUpon>DCUserPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -154,14 +178,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="views\DCCod.resx">
-      <DependentUpon>DCCod.cs</DependentUpon>
+    <EmbeddedResource Include="pages\DCCodPage.resx">
+      <DependentUpon>DCCodPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="views\DCLog.resx">
-      <DependentUpon>DCLog.cs</DependentUpon>
+    <EmbeddedResource Include="pages\DCLogPage.resx">
+      <DependentUpon>DCLogPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="views\DCUser.resx">
-      <DependentUpon>DCUser.cs</DependentUpon>
+    <EmbeddedResource Include="pages\base\DCObjectPage.resx">
+      <DependentUpon>DCObjectPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pages\base\DCPage.resx">
+      <DependentUpon>DCPage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="db\dc.mwb" />
     <Content Include="NLog.config">

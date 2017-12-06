@@ -92,7 +92,7 @@ namespace dcim.dataprovider
             logger.Debug(msg);
         }
 
-        public List<T> Select<T>(string query) where T : IDCObject, new()
+        public List<T> GetObjectList<T>(string query) where T : IDCObject, new()
         {
             List<T> dt = new List<T>();
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
@@ -125,7 +125,7 @@ namespace dcim.dataprovider
             }
             return dt;
         }
-        public T SelectOne<T>(string query) where T : IDCObject, new()
+        public T GetObject<T>(string query) where T : IDCObject, new()
         {
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
             MySqlDataReader reader = null;
@@ -206,9 +206,10 @@ namespace dcim.dataprovider
             }
             return result;
         }
-        public DataTable GetTable(string query)
+        public DataTable GetView(string view_name)
         {
             DataTable dt = new DataTable();
+            string query = string.Format("select * from {0}", view_name);            
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             try

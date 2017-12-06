@@ -1,6 +1,6 @@
-﻿namespace dcim.views
+﻿namespace dcim.pages
 {
-    partial class DCLog
+    partial class DCLogPage
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,24 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataView = new dcim.controls.DCDataView();
+            this.view = new dcim.controls.DCDataView();
             this.SuspendLayout();
             // 
-            // dataView
+            // view
             // 
-            this.dataView.DataSource = null;
-            this.dataView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataView.Location = new System.Drawing.Point(0, 0);
-            this.dataView.Name = "dataView";
-            this.dataView.Size = new System.Drawing.Size(1502, 698);
-            this.dataView.TabIndex = 0;
+            this.view.DataSource = null;
+            this.view.Location = new System.Drawing.Point(56, 60);
+            this.view.Name = "view";
+            this.view.Size = new System.Drawing.Size(1384, 590);
+            this.view.TabIndex = 0;
             // 
-            // DCLog
+            // DCLogPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.Controls.Add(this.dataView);
-            this.Name = "DCLog";
-            this.Size = new System.Drawing.Size(1502, 698);
+            this.Controls.Add(this.view);
+            this.Name = "DCLogPage";
+            this.Size = new System.Drawing.Size(1468, 698);
             this.Load += new System.EventHandler(this.DCLog_Load);
             this.ResumeLayout(false);
 
@@ -53,6 +52,6 @@
 
         #endregion
 
-        private controls.DCDataView dataView;
+        private controls.DCDataView view;
     }
 }

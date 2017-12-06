@@ -1,13 +1,13 @@
-﻿namespace dcim.views
+﻿namespace dcim.pages
 {
-    partial class DCView
+    partial class DCCodPage
     {
-        /// <summary> 
+        /// <summary>
         /// Обязательная переменная конструктора.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Освободить все используемые ресурсы.
         /// </summary>
         /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
@@ -20,16 +20,23 @@
             base.Dispose(disposing);
         }
 
-        #region Код, автоматически созданный конструктором компонентов
+        #region Код, автоматически созданный конструктором форм Windows
 
-        /// <summary> 
+        /// <summary>
         /// Требуемый метод для поддержки конструктора — не изменяйте 
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.SuspendLayout();
+            // 
+            // DCCodPage
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Name = "DCCodPage";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

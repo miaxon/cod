@@ -1,6 +1,6 @@
-﻿namespace dcim.views
+﻿namespace dcim.pages
 {
-    partial class DCUser
+    partial class DCUserPage
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -30,12 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // DCUser
+            // DCUserPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.Name = "DCUser";
-            this.Size = new System.Drawing.Size(1502, 698);
+            this.Name = "DCUserPage";
+            this.Size = new System.Drawing.Size(1212, 615);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

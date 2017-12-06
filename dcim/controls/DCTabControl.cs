@@ -1,5 +1,5 @@
 ﻿using dcim.dialogs;
-using dcim.views;
+using dcim.pages;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
@@ -40,7 +40,7 @@ namespace dcim.controls
             Type t = null;
             try
             {
-                t = asm.GetType("dcim.views." + name, true, true);
+                t = asm.GetType("dcim.pages." + name, true, true);
             }
             catch (Exception e)
             {
@@ -48,12 +48,12 @@ namespace dcim.controls
                 return;
             }
             ConstructorInfo ci = t.GetConstructor(System.Type.EmptyTypes);
-            DCView view = ci.Invoke(new object[] { }) as DCView;
+            DCPage view = ci.Invoke(new object[] { }) as DCPage;
             TabPage p = CreatePage(view, name);
             this.TabPages.Add(p);
             this.SelectedTab = p;
         }
-        private TabPage CreatePage(DCView view, string name)
+        private TabPage CreatePage(DCPage view, string name)
         {
             TabPage p = new TabPage(view.Title);
             p.Name = name;
