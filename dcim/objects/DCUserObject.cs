@@ -8,9 +8,12 @@ using dcim.dialogs;
 using System.ComponentModel;
 using dcim.enums;
 using dcim.dialogs.msgboxs;
+using System.Drawing;
+using System.Windows.Forms.Design;
 
 namespace dcim.objects
 {
+    
     public class DCUserObject : DCObject
     {
         [Browsable(true)]
@@ -52,7 +55,11 @@ namespace dcim.objects
         [DisplayName("LastLogon")]
         [PropertyOrder(12)]
         public MySqlDateTime LastLogon { get; set; }
-               
+
+        [TypeConverter(typeof(DCCodObject))]
+        public DCCodObject Obj { get; set; }
+
+
 
         public DCUserObject()
         {
@@ -68,12 +75,12 @@ namespace dcim.objects
                 Type t = values[10].GetType();
                 LastLogon = GetMySqlDateTime(values[10]);
                 Status = (DCStatus)values[11];
-                valid = true;
+                has_error = false;
             }
             catch (Exception e)
             {
                 DCMessageBox.Error(e);
-                valid = false;
+                has_error = true;
             }
 
         }

@@ -64,6 +64,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dgv);
+            this.DoubleBuffered = true;
             this.Name = "DCDataView";
             this.Size = new System.Drawing.Size(945, 434);
             ((System.ComponentModel.ISupportInitialize)(this.bs)).EndInit();

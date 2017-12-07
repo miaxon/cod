@@ -4,14 +4,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 using static dcim.Program;
 namespace dcim.objects
 {
-    [TypeConverter(typeof(PropertySorter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     [DefaultProperty("Name")]
     public class DCObject : IDCObject
     {
@@ -31,7 +33,7 @@ namespace dcim.objects
         [PropertyOrder(0)]
         public bool HasError
         {
-            get { return valid && Id > 0; }
+            get { return has_error & Id <= 0; }
         }
 
         [Browsable(true)]
@@ -80,6 +82,7 @@ namespace dcim.objects
         [Description("Extended object name")]
         [DisplayName("FullName")]
         [PropertyOrder(6)]
+        //
         public string FullName { get; set; }
 
         [Browsable(true)]
@@ -88,9 +91,10 @@ namespace dcim.objects
         [Description("Object info")]
         [DisplayName("Info")]
         [PropertyOrder(7)]
-        public string Info { get; set; }
+        [Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))]
+        public string Info { get; set; }       
 
-        protected bool valid = true;
+        protected bool has_error = true;
 
         public virtual void FromArray(object[] values)
         {

@@ -45,7 +45,8 @@ namespace dcim.dialogs
         private void pgrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             string str = e.ChangedItem.Label;
-            EditList.Add(e.ChangedItem.Label, e.ChangedItem.Value);
+            if (!EditList.ContainsKey(e.ChangedItem.Label))
+                EditList.Add(e.ChangedItem.Label, e.ChangedItem.Value);
         }
     }
 }
