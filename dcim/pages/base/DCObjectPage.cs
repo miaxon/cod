@@ -9,37 +9,39 @@ namespace dcim.pages
         {
             InitializeComponent();
         }
-        public  void Upadate()
+        public void Upadate()
         {
             DataTable dt = DataProvider.GetView(m_view_name);
             view.DataSource = dt;
-        }        
-
-        private void tbtn_refresh_Click(object sender, EventArgs e)
-        {
-            Upadate();
         }
+        protected virtual void Create() { }
+        protected virtual void Edit() { }
+        protected virtual void Delete() { }
 
         private void DCObjectPage_Load(object sender, EventArgs e)
         {
-            if (this.DesignMode)
-                return;
+            if (!this.DesignMode)
+                Upadate();
+        }
+
+        private void Btn_Refresh_Click(object sender, EventArgs e)
+        {
             Upadate();
         }
 
-        protected virtual void tbtn_create_Click(object sender, EventArgs e)
+        private void Btn_Create_Click(object sender, EventArgs e)
         {
-
+            Create();
         }
 
-        protected virtual void tbtn_edit_Click(object sender, EventArgs e)
+        private void Btn_Edit_Click(object sender, EventArgs e)
         {
-
+            Edit();
         }
 
-        protected virtual void tbtn_delete_Click(object sender, EventArgs e)
+        private void Btn_Delete_Click(object sender, EventArgs e)
         {
-
+            Delete();
         }
     }
 }

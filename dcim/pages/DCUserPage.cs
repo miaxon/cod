@@ -1,7 +1,9 @@
 ﻿using dcim.dialogs;
+using dcim.dialogs.msgboxs;
 using dcim.objects;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace dcim.pages
 {
@@ -13,18 +15,18 @@ namespace dcim.pages
             m_title = "Users";
             m_view_name = "user_view";
         }
-        protected override void tbtn_create_Click(object sender, EventArgs e)
+        protected override void Create()
         {
             DCUserObject o = new DCUserObject();
             DCUserDialog dlg = new DCUserDialog();
             dlg.PropertyObject = o;
-            if(dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 o.Create();
                 Upadate();
             }
         }
-        protected override void tbtn_edit_Click(object sender, EventArgs e)
+        protected override void Edit()
         {
             List<int> list = view.SelectedIndexes;
             if (list.Count == 0)
@@ -34,24 +36,32 @@ namespace dcim.pages
                 return;
             DCUserDialog dlg = new DCUserDialog();
             dlg.PropertyObject = o;
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
-                if (dlg.ChangedProperties.Count > 0)
+                if (dlg.EditList.Count > 0)
                 {
                     o.Save();
                     Upadate();
-                    if (dlg.ChangedProperties.ContainsKey("Password"))
-                        o.SetPassword(dlg.ChangedProperties["Password"].ToString());
+                    if (dlg.EditList.ContainsKey("Password"))
+                    {
+                        string passwd = dlg.EditList["Password"].ToString();
+                        o.SetPassword(passwd);
+                    }
                 }
             }
         }
-        protected override void tbtn_delete_Click(object sender, EventArgs e)
+        protected override void Delete()
         {
             List<int> list = view.SelectedIndexes;
             if (list.Count == 0)
                 return;
-            DCUserObject.Delete(list[0]);
-            Upadate();
+            string msg = string.Format("Number of object for deletion {0}. Continue?", list.Count);
+            if (DCMessageBox.Warning(msg) == DialogResult.OK)
+            {
+                foreach (int id in list)
+                    DCUserObject.Delete(id);
+                Upadate();
+            }
         }
     }
 }

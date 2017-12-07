@@ -7,6 +7,7 @@ using dcim.objects;
 using dcim.dialogs;
 using System.ComponentModel;
 using dcim.enums;
+using dcim.dialogs.msgboxs;
 
 namespace dcim.objects
 {
@@ -55,16 +56,25 @@ namespace dcim.objects
 
         public DCUserObject()
         {
-
+            TypeId = DCType.User;
         }
         public override void FromArray(object[] values)
         {
-            base.FromArray(values);
-            Email = (string)values[8];
-            AllowWinAuth = (bool)values[9];
-            Type t = values[10].GetType();
-            LastLogon = GetMySqlDateTime(values[10]);
-            Status = (DCStatus)values[11];
+            try
+            {
+                base.FromArray(values);
+                Email = (string)values[8];
+                AllowWinAuth = (bool)values[9];
+                Type t = values[10].GetType();
+                LastLogon = GetMySqlDateTime(values[10]);
+                Status = (DCStatus)values[11];
+                valid = true;
+            }
+            catch (Exception e)
+            {
+                DCMessageBox.Error(e);
+                valid = false;
+            }
 
         }
 
@@ -128,7 +138,7 @@ namespace dcim.objects
         {
             if(string.IsNullOrEmpty(password))
             {
-                DCMessageBox.OkFail("Empty password is not permitted!");
+                DCMessageBox.Error("Empty password is not permitted!");
                 return;
             }
             string query = string.Format("call user_password('{0}')", password);

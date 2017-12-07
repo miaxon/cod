@@ -94,7 +94,7 @@
     <Compile Include="dialogs\DCBaseDialog.Designer.cs">
       <DependentUpon>DCBaseDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="dialogs\DCMessageBox.cs" />
+    <Compile Include="dialogs\msgboxs\DCMessageBox.cs" />
     <Compile Include="dialogs\DCPropertyDialog.cs">
       <SubType>Form</SubType>
     </Compile>

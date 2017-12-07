@@ -1,4 +1,4 @@
-﻿using dcim.dialogs;
+﻿using dcim.dialogs.msgboxs;
 using dcim.pages;
 using System;
 using System.Reflection;
@@ -44,7 +44,7 @@ namespace dcim.controls
             }
             catch (Exception e)
             {
-                DCMessageBox.OkFail(e.Message);
+                DCMessageBox.Error(e.Message);
                 return;
             }
             ConstructorInfo ci = t.GetConstructor(System.Type.EmptyTypes);

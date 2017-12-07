@@ -10,6 +10,7 @@ using NLog;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using dcim.dialogs.msgboxs;
 
 namespace dcim.dataprovider
 {
@@ -27,7 +28,17 @@ namespace dcim.dataprovider
         private Logger logger = LogManager.GetLogger("dataprovider");
         public DCDataProvider()
         {
-            
+
+        }
+        private void DBError(MySqlException ex)
+        {
+            DCMessageBox.Error(string.Format("[{0}]: {1}", ex.Number, ex.Message));
+            logger.Debug(ex.Message);
+        }
+        private void Error(Exception ex)
+        {
+            DCMessageBox.Error(ex.ToString());
+            logger.Debug(ex.Message);
         }
         public bool Init(string server)
         {
@@ -40,8 +51,7 @@ namespace dcim.dataprovider
             }
             catch (MySqlException ex)
             {
-                DCMessageBox.OkFail(ex.Message);
-                logger.Debug(ex.Message);
+                DBError(ex);
             }
             if (m_conn.State == ConnectionState.Open)
             {
@@ -111,12 +121,11 @@ namespace dcim.dataprovider
             }
             catch (MySqlException ex)
             {
-                DCMessageBox.OkFail(ex.Message);
-                logger.Debug(ex.Message);
+                DBError(ex);
             }
             catch (Exception sysex)
             {
-                DCMessageBox.OkFail(sysex.Message);
+                Error(sysex);
             }
             finally
             {
@@ -142,13 +151,12 @@ namespace dcim.dataprovider
             }
             catch (MySqlException ex)
             {
-                DCMessageBox.OkFail(ex.Message);
-                logger.Debug(ex.Message);
+                DBError(ex);
                 return default(T);
             }
             catch (Exception sysex)
             {
-                DCMessageBox.OkFail(sysex.Message);
+                Error(sysex);
                 return default(T);
             }
             finally
@@ -167,13 +175,12 @@ namespace dcim.dataprovider
             }
             catch (MySqlException ex)
             {
-                DCMessageBox.OkFail(ex.Message);
-                logger.Debug(ex.Message);
+                DBError(ex);
                 return default(T);
             }
             catch (Exception sysex)
             {
-                DCMessageBox.OkFail(sysex.Message);
+                Error(sysex);
                 return default(T);
             }
         }
@@ -189,19 +196,21 @@ namespace dcim.dataprovider
             }
             catch (MySqlException ex)
             {
-                DCMessageBox.OkFail(ex.Message);
+                if (ex.Number == 1062)
+                    DCMessageBox.Error("Value is no unique!");
+                else
+                    DBError(ex);
                 try
                 {
                     tr.Rollback();
                 }
                 catch (MySqlException extr)
                 {
-                    DCMessageBox.OkFail(extr.Message);
-                    logger.Debug(ex.Message);
+                    DBError(extr);
                 }
                 catch (Exception sysex)
                 {
-                    DCMessageBox.OkFail(sysex.Message);
+                    Error(sysex);
                 }
             }
             return result;
@@ -209,7 +218,7 @@ namespace dcim.dataprovider
         public DataTable GetView(string view_name)
         {
             DataTable dt = new DataTable();
-            string query = string.Format("select * from {0}", view_name);            
+            string query = string.Format("select * from {0}", view_name);
             MySqlCommand cmd = new MySqlCommand(query, m_conn);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             try
@@ -218,12 +227,11 @@ namespace dcim.dataprovider
             }
             catch (MySqlException ex)
             {
-                DCMessageBox.OkFail(ex.Message);
-                logger.Debug(ex.Message);
+                DBError(ex);
             }
             catch (Exception sysex)
             {
-                DCMessageBox.OkFail(sysex.Message);
+                Error(sysex);
             }
             finally
             {
@@ -251,11 +259,11 @@ namespace dcim.dataprovider
             }
             catch (MySqlException ex)
             {
-                DCMessageBox.OkFail(ex.Message);
+                DBError(ex);
             }
             catch (Exception sysex)
             {
-                DCMessageBox.OkFail(sysex.Message);
+                Error(sysex);
             }
             return result;
         }
@@ -274,20 +282,20 @@ namespace dcim.dataprovider
                     int size = reader.GetInt32(reader.GetOrdinal("size"));
                     data = new byte[size];
                     reader.GetBytes(reader.GetOrdinal("data"), 0, data, 0, size);
-                };                                
+                };
                 return data;
             }
             catch (MySqlException ex)
             {
-                DCMessageBox.OkFail(ex.Message);
+                DBError(ex);
             }
             catch (Exception sysex)
             {
-                DCMessageBox.OkFail(sysex.Message);
+                Error(sysex);
             }
             finally
             {
-                if(reader != null)
+                if (reader != null)
                     reader.Close();
             }
             return data;

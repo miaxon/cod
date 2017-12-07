@@ -68,7 +68,7 @@
             this.tbtn_refresh.Size = new System.Drawing.Size(23, 22);
             this.tbtn_refresh.Text = "toolStripButton1";
             this.tbtn_refresh.ToolTipText = "refresh";
-            this.tbtn_refresh.Click += new System.EventHandler(this.tbtn_refresh_Click);
+            this.tbtn_refresh.Click += new System.EventHandler(this.Btn_Refresh_Click);
             // 
             // tbtn_create
             // 
@@ -79,7 +79,7 @@
             this.tbtn_create.Size = new System.Drawing.Size(23, 22);
             this.tbtn_create.Text = "toolStripButton1";
             this.tbtn_create.ToolTipText = "create";
-            this.tbtn_create.Click += new System.EventHandler(this.tbtn_create_Click);
+            this.tbtn_create.Click += new System.EventHandler(this.Btn_Create_Click);
             // 
             // tbtn_edit
             // 
@@ -90,7 +90,7 @@
             this.tbtn_edit.Size = new System.Drawing.Size(23, 22);
             this.tbtn_edit.Text = "toolStripButton1";
             this.tbtn_edit.ToolTipText = "edit";
-            this.tbtn_edit.Click += new System.EventHandler(this.tbtn_edit_Click);
+            this.tbtn_edit.Click += new System.EventHandler(this.Btn_Edit_Click);
             // 
             // tbtn_delete
             // 
@@ -101,7 +101,7 @@
             this.tbtn_delete.Size = new System.Drawing.Size(23, 22);
             this.tbtn_delete.Text = "toolStripButton1";
             this.tbtn_delete.ToolTipText = "delete";
-            this.tbtn_delete.Click += new System.EventHandler(this.tbtn_delete_Click);
+            this.tbtn_delete.Click += new System.EventHandler(this.Btn_Delete_Click);
             // 
             // DCObjectPage
             // 

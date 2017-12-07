@@ -18,15 +18,26 @@ namespace dcim.objects
         [Browsable(true)]
         [Category("Service")]
         [ReadOnly(true)]
-        [Description("User id")]
+        [Description("Object id")]
         [DisplayName("Id")]
-        [PropertyOrder(0)]
+        [PropertyOrder(-1)]
         public int Id { get; set; }
 
         [Browsable(true)]
         [Category("Service")]
         [ReadOnly(true)]
-        [Description("Row version")]
+        [Description("Is the object valid?")]
+        [DisplayName("Has error")]
+        [PropertyOrder(0)]
+        public bool HasError
+        {
+            get { return valid && Id > 0; }
+        }
+
+        [Browsable(true)]
+        [Category("Service")]
+        [ReadOnly(true)]
+        [Description("Object version")]
         [DisplayName("Version")]
         [PropertyOrder(1)]
         public int Version { get; set; }
@@ -34,7 +45,7 @@ namespace dcim.objects
         [Browsable(true)]
         [Category("Service")]
         [ReadOnly(true)]
-        [Description("User UUID")]
+        [Description("Objcet UUID")]
         [DisplayName("Uuid")]
         [PropertyOrder(2)]
         public string Uuid { get; set; }
@@ -56,9 +67,9 @@ namespace dcim.objects
         public MySqlDateTime CreateTime { get; set; }
 
         [Browsable(true)]
-        [Category("Personal")]
+        [Category("Security")]
         [ReadOnly(false)]
-        [Description("User name for login")]
+        [Description("Object system name")]
         [DisplayName("Name")]
         [PropertyOrder(5)]
         public string Name { get; set; }
@@ -66,7 +77,7 @@ namespace dcim.objects
         [Browsable(true)]
         [Category("Personal")]
         [ReadOnly(false)]
-        [Description("Full name")]
+        [Description("Extended object name")]
         [DisplayName("FullName")]
         [PropertyOrder(6)]
         public string FullName { get; set; }
@@ -74,10 +85,12 @@ namespace dcim.objects
         [Browsable(true)]
         [Category("Personal")]
         [ReadOnly(false)]
-        [Description("User info")]
+        [Description("Object info")]
         [DisplayName("Info")]
         [PropertyOrder(7)]
         public string Info { get; set; }
+
+        protected bool valid = true;
 
         public virtual void FromArray(object[] values)
         {
@@ -90,6 +103,7 @@ namespace dcim.objects
             FullName = (string)values[6];
             Info = (string)values[7];
         }
+        
         [Browsable(false)]
         public int ObjectTypeID
         {

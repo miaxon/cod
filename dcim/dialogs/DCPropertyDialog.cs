@@ -11,7 +11,7 @@ namespace dcim.dialogs
 {
     public partial class DCPropertyDialog : dcim.dialogs.DCBaseDialog
     {
-        public Dictionary<string, object> ChangedProperties = new Dictionary<string, object>();
+        public Dictionary<string, object> EditList = new Dictionary<string, object>();
         public DCPropertyDialog()
         {
             InitializeComponent();
@@ -45,7 +45,7 @@ namespace dcim.dialogs
         private void pgrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             string str = e.ChangedItem.Label;
-            ChangedProperties.Add(e.ChangedItem.Label, e.ChangedItem.Value);
+            EditList.Add(e.ChangedItem.Label, e.ChangedItem.Value);
         }
     }
 }

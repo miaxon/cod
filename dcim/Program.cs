@@ -10,6 +10,7 @@ using dcim.enums;
 using NLog;
 using System.Data;
 using MySql.Data.Types;
+using dcim.dialogs.msgboxs;
 
 namespace dcim
 {
@@ -35,13 +36,13 @@ namespace dcim
                 Properties.Settings.Default.server = tuple.Item1;
                 if(!DataProvider.Init(tuple.Item1))
                 {
-                    DCMessageBox.OkFail("Invalid server name.");
+                    DCMessageBox.Error("Invalid server name.");
                     goto auth;
                 }
                 Properties.Settings.Default.username = tuple.Item2;                
                 if (DCUserObject.Logon(tuple.Item2, tuple.Item3) <= 0)
                 {
-                    DCMessageBox.OkFail("Invalid user name or password.");
+                    DCMessageBox.Error("Invalid user name or password.");
                     DCLogger.Info("Failure LogOn user " + tuple.Item2);
                     goto auth;
                 }
