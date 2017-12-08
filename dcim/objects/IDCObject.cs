@@ -15,5 +15,6 @@ namespace dcim.objects
         string ObjectFullName { get; }
         string ObjectInfo { get; }
         bool HasError { get; }
+
     }
 }

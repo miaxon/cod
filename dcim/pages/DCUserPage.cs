@@ -40,7 +40,7 @@ namespace dcim.pages
             {
                 if (dlg.EditList.Count > 0)
                 {
-                    o.Save();
+                    o.Update();
                     Upadate();
                     if (dlg.EditList.ContainsKey("Password"))
                     {

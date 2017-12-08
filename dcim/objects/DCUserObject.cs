@@ -56,25 +56,21 @@ namespace dcim.objects
         [PropertyOrder(12)]
         public MySqlDateTime LastLogon { get; set; }
 
-        [TypeConverter(typeof(DCCodObject))]
-        public DCCodObject Obj { get; set; }
-
-
 
         public DCUserObject()
         {
             TypeId = DCType.User;
         }
+
         public override void FromArray(object[] values)
         {
             try
             {
                 base.FromArray(values);
                 Email = (string)values[8];
-                AllowWinAuth = (bool)values[9];
-                Type t = values[10].GetType();
-                LastLogon = GetMySqlDateTime(values[10]);
-                Status = (DCStatus)values[11];
+                AllowWinAuth = (bool)values[10];
+                LastLogon = GetMySqlDateTime(values[11]);
+                Status = (DCStatus)values[12];
                 has_error = false;
             }
             catch (Exception e)
@@ -91,16 +87,7 @@ namespace dcim.objects
             int result = DataProvider.GetScalar<int>(query);
             return result;
         }
-
-        private string GetFullName()
-        {
-            // TODO: полное имя заполняем в базу при добавлении с опцией winauth
-            using (DirectoryEntry domain = new DirectoryEntry(string.Format("WinNT://{0}/{1}", Environment.UserDomainName, Environment.UserName)))
-            {
-                return domain.Properties["fullname"].Value.ToString();
-            }
-        }
-
+        
         public static DCUserObject Get(int id)
         {
             string query = string.Format("call user_get({0}, '{1}')", id, null);
@@ -122,7 +109,7 @@ namespace dcim.objects
             return result;
         }
 
-        public void Save()
+        public void Update()
         {
             string query = string.Format("call user_update({0},'{1}','{2}','{3}','{4}',{5},{6})",
                 Id, Name, FullName, Email, Info, (int)Status, AllowWinAuth);
