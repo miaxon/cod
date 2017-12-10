@@ -18,6 +18,7 @@ namespace dcim.controls
         {
             InitializeComponent();
             dgv.AutoGenerateColumns = true;
+            
         }
         private void DataGrid_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
@@ -45,10 +46,15 @@ namespace dcim.controls
                 if (value != null)
                 {
                     bs.DataSource = value;
-                    dgv.Columns[dgv.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    
                     foreach (DataGridViewColumn c in dgv.Columns)
+                    {
                         c.Visible = !c.Name.StartsWith("_");
+                        dgv.AutoResizeColumn(c.Index, DataGridViewAutoSizeColumnMode.AllCells);
+                    }
+                    dgv.Columns[dgv.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
+                
             }
         }
         public List<int> SelectedIndexes

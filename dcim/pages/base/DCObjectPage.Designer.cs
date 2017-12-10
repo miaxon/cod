@@ -35,15 +35,18 @@
             this.tbtn_create = new System.Windows.Forms.ToolStripButton();
             this.tbtn_edit = new System.Windows.Forms.ToolStripButton();
             this.tbtn_delete = new System.Windows.Forms.ToolStripButton();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip.SuspendLayout();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // view
             // 
             this.view.DataSource = null;
-            this.view.Location = new System.Drawing.Point(39, 59);
+            this.view.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.view.Location = new System.Drawing.Point(3, 3);
             this.view.Name = "view";
-            this.view.Size = new System.Drawing.Size(1285, 493);
+            this.view.Size = new System.Drawing.Size(1462, 584);
             this.view.TabIndex = 1;
             // 
             // toolStrip
@@ -55,7 +58,7 @@
             this.tbtn_delete});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1212, 25);
+            this.toolStrip.Size = new System.Drawing.Size(1468, 25);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -103,16 +106,30 @@
             this.tbtn_delete.ToolTipText = "delete";
             this.tbtn_delete.Click += new System.EventHandler(this.Btn_Delete_Click);
             // 
+            // tableLayoutPanel
+            // 
+            this.tableLayoutPanel.ColumnCount = 1;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel.Controls.Add(this.view, 0, 0);
+            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 25);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 1;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(1468, 590);
+            this.tableLayoutPanel.TabIndex = 3;
+            // 
             // DCObjectPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.toolStrip);
-            this.Controls.Add(this.view);
             this.Name = "DCObjectPage";
-            this.Size = new System.Drawing.Size(1212, 615);
+            this.Size = new System.Drawing.Size(1468, 615);
             this.Load += new System.EventHandler(this.DCObjectPage_Load);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,5 +142,6 @@
         private System.Windows.Forms.ToolStripButton tbtn_refresh;
         private System.Windows.Forms.ToolStripButton tbtn_edit;
         private System.Windows.Forms.ToolStripButton tbtn_delete;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
     }
 }

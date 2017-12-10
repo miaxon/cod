@@ -34,7 +34,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Name = "DCUserPage";
-            this.Size = new System.Drawing.Size(1212, 615);
             this.ResumeLayout(false);
             this.PerformLayout();
 
