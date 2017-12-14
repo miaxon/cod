@@ -26,6 +26,7 @@ namespace dcim.pages
                 Upadate();
             }
         }
+        //edit function
         protected override void Edit()
         {
             List<int> list = view.SelectedIndexes;
