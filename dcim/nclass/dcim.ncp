@@ -1,0 +1,628 @@
+<Project>
+  <Name>dcim</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>dcim.exe</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Interface">
+        <Name>IDCObject</Name>
+        <Access>Public</Access>
+        <Location left="796" top="1829" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">Int32 ObjectTypeID { get; }</Member>
+        <Member type="Property">Int32 ObjectID { get; }</Member>
+        <Member type="Property">String ObjectName { get; }</Member>
+        <Member type="Property">String ObjectFullName { get; }</Member>
+        <Member type="Property">String ObjectInfo { get; }</Member>
+        <Member type="Property">Boolean HasError { get; }</Member>
+        <Member type="Method">Void FromArray(Object[] values)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainForm</Name>
+        <Access>Public</Access>
+        <Location left="1052" top="26" />
+        <Size width="162" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private IContainer components</Member>
+        <Member type="Field">private MenuStrip mainMenu</Member>
+        <Member type="Field">private ToolStripMenuItem administrationToolStripMenuItem</Member>
+        <Member type="Field">private ToolStripMenuItem DCUserPage</Member>
+        <Member type="Field">private StatusStrip statusBar</Member>
+        <Member type="Field">private DCTabControl dcTabControl</Member>
+        <Member type="Field">private ToolStripMenuItem DCLogPage</Member>
+        <Member type="Field">private ToolStripMenuItem DCCodPage</Member>
+        <Member type="Constructor">public MainForm()</Member>
+        <Member type="Method">private Void MainMenu_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Program</Name>
+        <Access>Internal</Access>
+        <Location left="1422" top="880" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public static DCDataProvider DataProvider</Member>
+        <Member type="Field">public static DCUserObject CurrentUser</Member>
+        <Member type="Field">public static Logger DCLogger</Member>
+        <Member type="Constructor">static Program()</Member>
+        <Member type="Method">private static Void Main()</Member>
+        <Member type="Method">private static Tuple&lt;String, String, String&gt; ShowAuthDialog()</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCUserPage</Name>
+        <Access>Public</Access>
+        <Location left="330" top="1646" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Constructor">public DCUserPage()</Member>
+        <Member type="Method">protected virtual Void Create()</Member>
+        <Member type="Method">protected virtual Void Edit()</Member>
+        <Member type="Method">protected virtual Void Delete()</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCCodPage</Name>
+        <Access>Public</Access>
+        <Location left="330" top="1878" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Constructor">public DCCodPage()</Member>
+        <Member type="Method">protected virtual Void Create()</Member>
+        <Member type="Method">protected virtual Void Edit()</Member>
+        <Member type="Method">protected virtual Void Delete()</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCLogPage</Name>
+        <Access>Public</Access>
+        <Location left="284" top="1043" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Field">private DCDataView view</Member>
+        <Member type="Constructor">public DCLogPage()</Member>
+        <Member type="Method">private Void DCLog_Load(Object sender, EventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCObjectPage</Name>
+        <Access>Public</Access>
+        <Location left="10" top="1570" />
+        <Size width="162" height="417" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Field">protected DCObjectView view</Member>
+        <Member type="Field">private ToolStripButton tbtn_create</Member>
+        <Member type="Field">private ToolStrip toolStrip</Member>
+        <Member type="Field">private ToolStripButton tbtn_refresh</Member>
+        <Member type="Field">private ToolStripButton tbtn_edit</Member>
+        <Member type="Field">private ToolStripButton tbtn_delete</Member>
+        <Member type="Field">private TableLayoutPanel tableLayoutPanel</Member>
+        <Member type="Constructor">public DCObjectPage()</Member>
+        <Member type="Method">public Void Upadate()</Member>
+        <Member type="Method">protected virtual Void Create()</Member>
+        <Member type="Method">protected virtual Void Edit()</Member>
+        <Member type="Method">protected virtual Void Delete()</Member>
+        <Member type="Method">private Void DCObjectPage_Load(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void Btn_Refresh_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void Btn_Create_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void Btn_Edit_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">private Void Btn_Delete_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCPage</Name>
+        <Access>Public</Access>
+        <Location left="52" top="1010" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected String m_title</Member>
+        <Member type="Field">protected String m_view_name</Member>
+        <Member type="Field">private IContainer components</Member>
+        <Member type="Property">public String Title { get; }</Member>
+        <Member type="Constructor">public DCPage()</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCCodObject</Name>
+        <Access>Public</Access>
+        <Location left="1486" top="1402" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public DCCodObject()</Member>
+        <Member type="Method">public static DCCodObject Get(Int32 id)</Member>
+        <Member type="Method">public static DCCodObject Get(String name)</Member>
+        <Member type="Method">public Void Update()</Member>
+        <Member type="Method">public Void Create()</Member>
+        <Member type="Method">public static Void Delete(Int32 id)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCFileObject</Name>
+        <Access>Public</Access>
+        <Location left="1012" top="1757" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public DCFileObject()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCObject</Name>
+        <Access>Public</Access>
+        <Location left="1245" top="1326" />
+        <Size width="162" height="383" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected Boolean has_error</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public Boolean HasError { get; }</Member>
+        <Member type="Property">public Int32 Version { get; set; }</Member>
+        <Member type="Property">public String Uuid { get; set; }</Member>
+        <Member type="Property">public DCType TypeId { get; set; }</Member>
+        <Member type="Property">public MySqlDateTime CreateTime { get; set; }</Member>
+        <Member type="Property">public String Name { get; set; }</Member>
+        <Member type="Property">public String FullName { get; set; }</Member>
+        <Member type="Property">public String Info { get; set; }</Member>
+        <Member type="Property">public Int32 ObjectTypeID { get; }</Member>
+        <Member type="Property">public Int32 ObjectID { get; }</Member>
+        <Member type="Property">public String ObjectName { get; }</Member>
+        <Member type="Property">public String ObjectFullName { get; }</Member>
+        <Member type="Property">public String ObjectInfo { get; }</Member>
+        <Member type="Constructor">public DCObject()</Member>
+        <Member type="Method">public virtual Void FromArray(Object[] values)</Member>
+        <Member type="Method">public MySqlDateTime GetMySqlDateTime(Object o)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCUserObject</Name>
+        <Access>Public</Access>
+        <Location left="954" top="1326" />
+        <Size width="162" height="332" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public String Email { get; set; }</Member>
+        <Member type="Property">public Boolean AllowWinAuth { get; set; }</Member>
+        <Member type="Property">public String Password { get; set; }</Member>
+        <Member type="Property">public DCStatus Status { get; set; }</Member>
+        <Member type="Property">public MySqlDateTime LastLogon { get; set; }</Member>
+        <Member type="Constructor">public DCUserObject()</Member>
+        <Member type="Method">public override Void FromArray(Object[] values)</Member>
+        <Member type="Method">public static Int32 Logon(String name, String password)</Member>
+        <Member type="Method">public static DCUserObject Get(Int32 id)</Member>
+        <Member type="Method">public static DCUserObject Get(String name)</Member>
+        <Member type="Method">public static List&lt;DCUserObject&gt; GetList()</Member>
+        <Member type="Method">public Void Update()</Member>
+        <Member type="Method">public Void Create()</Member>
+        <Member type="Method">public static Void Delete(Int32 id)</Member>
+        <Member type="Method">public Void SetPassword(String password)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCEnumConverter</Name>
+        <Access>Internal</Access>
+        <Location left="623" top="150" />
+        <Size width="162" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new Type type</Member>
+        <Member type="Constructor">public DCEnumConverter(Type type)</Member>
+        <Member type="Method">public override Object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, Object value, Type destType)</Member>
+        <Member type="Method">public override Object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, Object value)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>PropertySorter</Name>
+        <Access>Public</Access>
+        <Location left="442" top="150" />
+        <Size width="162" height="131" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public PropertySorter()</Member>
+        <Member type="Method">public override Boolean GetPropertiesSupported(ITypeDescriptorContext context)</Member>
+        <Member type="Method">public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, Object value, Attribute[] attributes)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>PropertyOrderAttribute</Name>
+        <Access>Public</Access>
+        <Location left="261" top="150" />
+        <Size width="162" height="133" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Int32 _order</Member>
+        <Member type="Property">public Int32 Order { get; }</Member>
+        <Member type="Constructor">public PropertyOrderAttribute(Int32 order)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>PropertyOrderPair</Name>
+        <Access>Public</Access>
+        <Location left="1496" top="445" />
+        <Size width="162" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Int32 _order</Member>
+        <Member type="Field">private String _name</Member>
+        <Member type="Property">public String Name { get; }</Member>
+        <Member type="Constructor">public PropertyOrderPair(String name, Int32 order)</Member>
+        <Member type="Method">public Int32 CompareTo(Object obj)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MultiLineTextEditor</Name>
+        <Access>Public</Access>
+        <Location left="12" top="150" />
+        <Size width="162" height="159" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private IWindowsFormsEditorService _editorService</Member>
+        <Member type="Constructor">public MultiLineTextEditor()</Member>
+        <Member type="Method">public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)</Member>
+        <Member type="Method">public override Object EditValue(ITypeDescriptorContext context, IServiceProvider provider, Object value)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCAuthDialog</Name>
+        <Access>Public</Access>
+        <Location left="648" top="413" />
+        <Size width="162" height="349" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Field">private Label label1</Member>
+        <Member type="Field">private Label label2</Member>
+        <Member type="Field">private TextBox txt_username</Member>
+        <Member type="Field">private TextBox txt_password</Member>
+        <Member type="Field">private CheckBox chb_allow_winauth</Member>
+        <Member type="Field">private TextBox txt_server</Member>
+        <Member type="Field">private Label label3</Member>
+        <Member type="Property">public String UserName { get; }</Member>
+        <Member type="Property">public String Password { get; }</Member>
+        <Member type="Property">public String Server { get; }</Member>
+        <Member type="Constructor">public DCAuthDialog()</Member>
+        <Member type="Method">private Void M_txt_password_KeyDown(Object sender, KeyEventArgs e)</Member>
+        <Member type="Method">private Void M_chb_allow_winauth_CheckedChanged(Object sender, EventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCBaseDialog</Name>
+        <Access>Public</Access>
+        <Location left="436" top="460" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private IContainer components</Member>
+        <Member type="Field">private Button btn_cancel</Member>
+        <Member type="Field">private Button btn_ok</Member>
+        <Member type="Constructor">public DCBaseDialog()</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCCodDialog</Name>
+        <Access>Public</Access>
+        <Location left="12" top="341" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Constructor">public DCCodDialog()</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCPropertyDialog</Name>
+        <Access>Public</Access>
+        <Location left="224" top="445" />
+        <Size width="162" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public Dictionary&lt;String, Object&gt; EditList</Member>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Field">protected PropertyGrid pgrid</Member>
+        <Member type="Property">public Object PropertyObject { get; set; }</Member>
+        <Member type="Constructor">public DCPropertyDialog()</Member>
+        <Member type="Method">protected Void ResizePropertyGridSplitter(PropertyGrid grid, Int32 width)</Member>
+        <Member type="Method">protected virtual Void pgrid_Paint(Object sender, PaintEventArgs e)</Member>
+        <Member type="Method">protected virtual Void pgrid_PropertyValueChanged(Object s, PropertyValueChangedEventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCUserDialog</Name>
+        <Access>Public</Access>
+        <Location left="12" top="582" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Constructor">public DCUserDialog()</Member>
+        <Member type="Method">protected virtual Void pgrid_PropertyValueChanged(Object s, PropertyValueChangedEventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCMessageBox</Name>
+        <Access>Public</Access>
+        <Location left="623" top="12" />
+        <Size width="162" height="117" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static DialogResult Error(Object message)</Member>
+        <Member type="Method">public static DialogResult Warning(Object message)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCDataProvider</Name>
+        <Access>Public</Access>
+        <Location left="1002" top="508" />
+        <Size width="162" height="383" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private String m_conn_string</Member>
+        <Member type="Field">private MySqlConnection m_conn</Member>
+        <Member type="Field">private Logger logger</Member>
+        <Member type="Constructor">public DCDataProvider()</Member>
+        <Member type="Method">private Void DBError(MySqlException ex)</Member>
+        <Member type="Method">private Void Error(Exception ex)</Member>
+        <Member type="Method">public Boolean Init(String server)</Member>
+        <Member type="Method">public String Info()</Member>
+        <Member type="Method">private Void M_conn_StateChange(Object sender, StateChangeEventArgs e)</Member>
+        <Member type="Method">private Void M_conn_InfoMessage(Object sender, MySqlInfoMessageEventArgs args)</Member>
+        <Member type="Method">public List&lt;T&gt; GetObjectList(String query)</Member>
+        <Member type="Method">public T GetObject(String query)</Member>
+        <Member type="Method">public T GetScalar(String query)</Member>
+        <Member type="Method">public Int64 Update(String query)</Member>
+        <Member type="Method">public DataTable GetView(String view_name)</Member>
+        <Member type="Method">public Void LogAdd(T o, DCAction a, String p)</Member>
+        <Member type="Method">public Int32 FileAdd(String name, Byte[] data, Int32 size)</Member>
+        <Member type="Method">public Byte[] FileGet(String name)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCDataView</Name>
+        <Access>Public</Access>
+        <Location left="695" top="1071" />
+        <Size width="162" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private IContainer components</Member>
+        <Member type="Field">private BindingSource bs</Member>
+        <Member type="Field">protected DataGridView dgv</Member>
+        <Member type="Property">public DataTable DataSource { get; set; }</Member>
+        <Member type="Property">public List&lt;Int32&gt; SelectedIndexes { get; }</Member>
+        <Member type="Constructor">public DCDataView()</Member>
+        <Member type="Method">private Void DataGrid_RowPostPaint(Object sender, DataGridViewRowPostPaintEventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCObjectView</Name>
+        <Access>Public</Access>
+        <Location left="241" top="1383" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Constructor">public DCObjectView()</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DCTabControl</Name>
+        <Access>Public</Access>
+        <Location left="1249" top="35" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private new IContainer components</Member>
+        <Member type="Constructor">public DCTabControl()</Member>
+        <Member type="Method">private Void Item_Click(Object sender, EventArgs e)</Member>
+        <Member type="Method">protected virtual Void TabClosed(Int32 index)</Member>
+        <Member type="Method">public Void AddView(String name)</Member>
+        <Member type="Method">private TabPage CreatePage(DCPage view, String name)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TabControlEx</Name>
+        <Access>Public</Access>
+        <Location left="1475" top="26" />
+        <Size width="162" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected ContextMenu m_pageMenu</Member>
+        <Member type="Field">private Font m_font</Member>
+        <Member type="Field">private IContainer components</Member>
+        <Member type="Constructor">public TabControlEx()</Member>
+        <Member type="Method">protected virtual Void OnControlAdded(ControlEventArgs e)</Member>
+        <Member type="Method">protected virtual Void TabClosed(Int32 index)</Member>
+        <Member type="Method">protected virtual Void OnPaint(PaintEventArgs pe)</Member>
+        <Member type="Method">protected virtual Void OnDrawItem(DrawItemEventArgs e)</Member>
+        <Member type="Method">protected virtual Void OnMouseMove(MouseEventArgs e)</Member>
+        <Member type="Method">protected virtual Void OnMouseDown(MouseEventArgs e)</Member>
+        <Member type="Method">protected virtual Void Dispose(Boolean disposing)</Member>
+        <Member type="Method">private Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>DCAction</Name>
+        <Access>Public</Access>
+        <Location left="436" top="12" />
+        <Size width="162" height="117" />
+        <Collapsed>False</Collapsed>
+        <Value>Logon = 1</Value>
+        <Value>Logoff = 2</Value>
+      </Entity>
+      <Entity type="Enum">
+        <Name>DCType</Name>
+        <Access>Public</Access>
+        <Location left="224" top="12" />
+        <Size width="162" height="117" />
+        <Collapsed>False</Collapsed>
+        <Value>User = 1</Value>
+        <Value>Cod = 2</Value>
+      </Entity>
+      <Entity type="Enum">
+        <Name>DCStatus</Name>
+        <Access>Public</Access>
+        <Location left="12" top="12" />
+        <Size width="162" height="117" />
+        <Collapsed>False</Collapsed>
+        <Value>Default = 0</Value>
+        <Value>Disabled = 1</Value>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="3" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="4" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="5" second="7">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="6" second="7">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="8" second="10">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="9" second="10">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="11" second="10">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="17" second="18">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="19" second="20">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="20" second="18">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="21" second="20">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="25" second="24">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="26" second="27">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="8" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1479</X>
+          <Y>2134</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="9" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1069</X>
+          <Y>2006</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="10" second="0">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1201</X>
+          <Y>1682</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="11" second="0">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>840</X>
+          <Y>1616</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="1" second="26">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1154</X>
+          <Y>332</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>dcTabControl</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="2" second="23">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1361</X>
+          <Y>964</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>DataProvider</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="2" second="11">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>CurrentUser</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="5" second="24">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>view</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="6" second="25">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>view</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
