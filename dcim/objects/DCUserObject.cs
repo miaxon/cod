@@ -67,7 +67,7 @@ namespace dcim.objects
             try
             {
                 base.FromArray(values);
-                Email = (string)values[8];
+                Email = (string)values[9];
                 AllowWinAuth = (bool)values[10];
                 LastLogon = GetMySqlDateTime(values[11]);
                 Status = (DCStatus)values[12];

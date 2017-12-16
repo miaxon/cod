@@ -69,11 +69,19 @@ namespace dcim.objects
         public MySqlDateTime CreateTime { get; set; }
 
         [Browsable(true)]
+        [Category("DateTime")]
+        [ReadOnly(true)]
+        [Description("Object modification time")]
+        [DisplayName("UpdateTime")]
+        [PropertyOrder(5)]
+        public MySqlDateTime UpdateTime { get; set; }
+
+        [Browsable(true)]
         [Category("Security")]
         [ReadOnly(false)]
         [Description("Object system name")]
         [DisplayName("Name")]
-        [PropertyOrder(5)]
+        [PropertyOrder(6)]
         public string Name { get; set; }
 
         [Browsable(true)]
@@ -81,7 +89,7 @@ namespace dcim.objects
         [ReadOnly(false)]
         [Description("Extended object name")]
         [DisplayName("FullName")]
-        [PropertyOrder(6)]
+        [PropertyOrder(7)]
         //
         public string FullName { get; set; }
 
@@ -90,7 +98,7 @@ namespace dcim.objects
         [ReadOnly(false)]
         [Description("Object info")]
         [DisplayName("Info")]
-        [PropertyOrder(7)]
+        [PropertyOrder(8)]
         [Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))]
         public string Info { get; set; }       
 
@@ -103,9 +111,10 @@ namespace dcim.objects
             Uuid = (string)values[2];
             TypeId = (DCType)values[3];
             CreateTime = (MySqlDateTime)values[4];
-            Name = (string)values[5];
-            FullName = (string)values[6];
-            Info = (string)values[7];
+            UpdateTime = (MySqlDateTime)values[5];
+            Name = (string)values[6];
+            FullName = (string)values[7];
+            Info = (string)values[8];
         }
         
         [Browsable(false)]
