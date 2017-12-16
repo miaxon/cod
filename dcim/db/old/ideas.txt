@@ -229,3 +229,8 @@ DEALLOCATE PREPARE s;
 		//MemoryStream ms = new MemoryStream(rawData);
                 //Image x = Image.FromStream(ms);
                 result = (Bitmap)((new ImageConverter()).ConvertFrom(fdata));
+				
+
+				
+				
+git push --mirror https://github.com/miaxon/cod.git
