@@ -11,10 +11,45 @@ namespace dcim.dialogs
 {
     public partial class DCPropertyDialog : dcim.dialogs.DCBaseDialog
     {
-        public Dictionary<string, object> EditList = new Dictionary<string, object>();
+        private Dictionary<string, Tuple<object, object>> EditList = new Dictionary<string, Tuple<object, object>>();
         public DCPropertyDialog()
         {
             InitializeComponent();
+        }
+        public object GetNewValue(string property)
+        {
+            if (EditList.ContainsKey(property))
+                return EditList[property].Item1;
+            return null;
+        }
+        public object GetOldValue(string property)
+        {
+            if (EditList.ContainsKey(property))
+                return EditList[property].Item2;
+            return null;
+        }
+        public bool IsEdit(string property)
+        {
+            return EditList.ContainsKey(property);
+        }
+        public bool HasEdit
+        {
+            get
+            {
+                return EditList.Count > 0;
+            }
+        }
+        public string EditString
+        {
+            get
+            {
+                string str = "";
+                foreach (var s in EditList)
+                {
+                    str += string.Format("{0}:{1}[{2}]; ", s.Key, s.Value.Item2, s.Value.Item1);
+                }
+                return str;
+            }
         }
         public object PropertyObject
         {
@@ -46,7 +81,12 @@ namespace dcim.dialogs
         {
             string str = e.ChangedItem.Label;
             if (!EditList.ContainsKey(str))
-                EditList.Add(str, e.ChangedItem.Value);
+                EditList.Add(str, Tuple.Create(e.OldValue, e.ChangedItem.Value));
+            else
+            {
+                Tuple<object, object> values = Tuple.Create(EditList[str].Item1, e.ChangedItem.Value);
+                EditList[str] = values;
+            }
         }
     }
 }

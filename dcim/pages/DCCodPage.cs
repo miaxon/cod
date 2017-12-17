@@ -36,7 +36,7 @@ namespace dcim.pages
             dlg.PropertyObject = o;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                if (dlg.EditList.Count > 0)
+                if (dlg.HasEdit)
                 {
                     o.Update();
                     Upadate();                    

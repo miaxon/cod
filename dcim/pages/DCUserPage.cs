@@ -38,13 +38,13 @@ namespace dcim.pages
             dlg.PropertyObject = o;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                if (dlg.EditList.Count > 0)
+                if (dlg.HasEdit)
                 {
                     o.Update();
                     Upadate();
-                    if (dlg.EditList.ContainsKey("Password"))
+                    if (dlg.IsEdit("Password"))
                     {
-                        string passwd = dlg.EditList["Password"].ToString();
+                        string passwd = dlg.GetNewValue("Password").ToString();
                         o.SetPassword(passwd);
                     }
                 }
