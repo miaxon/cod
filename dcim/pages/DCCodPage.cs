@@ -9,11 +9,11 @@ namespace dcim.pages
     {
         public DCCodPage()
         {
-            InitializeComponent();
+            InitializeComponent();            
             m_title = "Cod";
-            m_view_name = "cod_view";
+            m_view_name = "cod_view";            
         }
-        protected override void Create()
+        public override void Create()
         {
             DCCodObject o = new DCCodObject();
             DCCodDialog dlg = new DCCodDialog();
@@ -24,7 +24,7 @@ namespace dcim.pages
                 Upadate();
             }
         }
-        protected override void Edit()
+        public override void Edit()
         {
             List<int> list = view.SelectedIndexes;
             if (list.Count == 0)
@@ -43,7 +43,7 @@ namespace dcim.pages
                 }
             }
         }
-        protected override void Delete()
+        public override void Delete()
         {
             List<int> list = view.SelectedIndexes;
             if (list.Count == 0)

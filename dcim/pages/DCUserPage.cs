@@ -15,7 +15,15 @@ namespace dcim.pages
             m_title = "Users";
             m_view_name = "user_view";
         }
-        protected override void Create()
+        public override object GetCurrentObject()
+        {
+            List<int> list = view.SelectedIndexes;
+            if (list.Count == 0)
+                return null;
+            DCUserObject o = DCUserObject.Get(list[0]);
+            return o;
+        }
+        public override void Create()
         {
             DCUserObject o = new DCUserObject();
             DCUserDialog dlg = new DCUserDialog();
@@ -26,7 +34,7 @@ namespace dcim.pages
                 Upadate();
             }
         }
-        protected override void Edit()
+        public override void Edit()
         {
             List<int> list = view.SelectedIndexes;
             if (list.Count == 0)
@@ -50,7 +58,7 @@ namespace dcim.pages
                 }
             }
         }
-        protected override void Delete()
+        public override void Delete()
         {
             List<int> list = view.SelectedIndexes;
             if (list.Count == 0)

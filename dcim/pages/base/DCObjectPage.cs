@@ -3,7 +3,7 @@ using System.Data;
 using static dcim.Program;
 namespace dcim.pages
 {
-    public partial class DCObjectPage : DCPage
+    public partial class DCObjectPage : DCDockPage
     {
         public DCObjectPage()
         {
@@ -14,12 +14,17 @@ namespace dcim.pages
             DataTable dt = DataProvider.GetView(m_view_name);
             view.DataSource = dt;
         }
-        protected virtual void Create() { }
-        protected virtual void Edit() { }
-        protected virtual void Delete() { }
+        public virtual object GetCurrentObject()
+        {
+            return null;
+        }
+        public virtual void Create() { }
+        public virtual void Edit() { }
+        public virtual void Delete() { }
 
         private void DCObjectPage_Load(object sender, EventArgs e)
         {
+            Text = m_title;
             if (!this.DesignMode)
                 Upadate();
         }

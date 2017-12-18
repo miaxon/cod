@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static dcim.Program;
+using WeifenLuo.WinFormsUI.Docking;
+
 namespace dcim.pages
 {
-    public partial class DCPage : UserControl
+    public partial class DCDockPage : DockContent
     {
         protected string m_title = "Base view for DC objects";
         protected string m_view_name;
-        public DCPage()
+        public DCDockPage()
         {
             InitializeComponent();
-            this.Dock = DockStyle.Fill;
-
+            AutoScaleMode = AutoScaleMode.Dpi;
         }
         public string Title
         {
             get { return m_title; }
-        }        
-        
+        }
     }
 }

@@ -59,6 +59,9 @@
     <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.3.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
       <HintPath>..\packages\DockPanelSuite.3.0.3\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015, Version=3.0.3.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.ThemeVS2015.3.0.3\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="controls\DCDataView.cs">
@@ -73,19 +76,7 @@
     <Compile Include="controls\DCObjectView.Designer.cs">
       <DependentUpon>DCObjectView.cs</DependentUpon>
     </Compile>
-    <Compile Include="controls\DCTabControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="controls\DCTabControl.Designer.cs">
-      <DependentUpon>DCTabControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="dataprovider\DCDataProvider.cs" />
-    <Compile Include="controls\TabControlEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="controls\TabControlEx.Designer.cs">
-      <DependentUpon>TabControlEx.cs</DependentUpon>
-    </Compile>
     <Compile Include="dialogs\DCAuthDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,8 +121,20 @@
     <Compile Include="objects\DCObject.cs" />
     <Compile Include="objects\DCUserObject.cs" />
     <Compile Include="objects\IDCObject.cs" />
+    <Compile Include="pages\base\DCDockPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="pages\base\DCDockPage.Designer.cs">
+      <DependentUpon>DCDockPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pages\DCPropertyPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="pages\DCPropertyPage.Designer.cs">
+      <DependentUpon>DCPropertyPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="pages\DCUserPage.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="pages\DCUserPage.Designer.cs">
       <DependentUpon>DCUserPage.cs</DependentUpon>
@@ -139,37 +142,25 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="pages\DCCodPage.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="pages\DCCodPage.Designer.cs">
       <DependentUpon>DCCodPage.cs</DependentUpon>
     </Compile>
     <Compile Include="pages\DCLogPage.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="pages\DCLogPage.Designer.cs">
       <DependentUpon>DCLogPage.cs</DependentUpon>
     </Compile>
     <Compile Include="pages\base\DCObjectPage.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="pages\base\DCObjectPage.Designer.cs">
       <DependentUpon>DCObjectPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="pages\base\DCPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="pages\base\DCPage.Designer.cs">
-      <DependentUpon>DCPage.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="controls\DCDataView.resx">
       <DependentUpon>DCDataView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="controls\DCTabControl.resx">
-      <DependentUpon>DCTabControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="controls\TabControlEx.resx">
-      <DependentUpon>TabControlEx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dialogs\DCAuthDialog.resx">
       <DependentUpon>DCAuthDialog.cs</DependentUpon>
@@ -185,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pages\DCPropertyPage.resx">
+      <DependentUpon>DCPropertyPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="pages\DCUserPage.resx">
       <DependentUpon>DCUserPage.cs</DependentUpon>
@@ -207,9 +201,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="pages\base\DCObjectPage.resx">
       <DependentUpon>DCObjectPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="pages\base\DCPage.resx">
-      <DependentUpon>DCPage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="db\dc.mwb" />
     <Content Include="NLog.config">

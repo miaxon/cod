@@ -41,7 +41,7 @@
             // 
             // DCLogPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            //this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Controls.Add(this.view);
             this.Name = "DCLogPage";
             this.Size = new System.Drawing.Size(1468, 698);

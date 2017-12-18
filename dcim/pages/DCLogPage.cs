@@ -3,7 +3,7 @@ using System.Data;
 using static dcim.Program;
 namespace dcim.pages
 {
-    public partial class DCLogPage : DCPage
+    public partial class DCLogPage : DCDockPage
     {
         public DCLogPage()
         {
