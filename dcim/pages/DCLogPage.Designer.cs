@@ -34,17 +34,18 @@
             // view
             // 
             this.view.DataSource = null;
-            this.view.Location = new System.Drawing.Point(56, 60);
+            this.view.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.view.Location = new System.Drawing.Point(0, 0);
             this.view.Name = "view";
-            this.view.Size = new System.Drawing.Size(1384, 590);
+            this.view.Size = new System.Drawing.Size(1452, 660);
             this.view.TabIndex = 0;
             // 
             // DCLogPage
             // 
-            //this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.ClientSize = new System.Drawing.Size(1452, 660);
             this.Controls.Add(this.view);
             this.Name = "DCLogPage";
-            this.Size = new System.Drawing.Size(1468, 698);
             this.Load += new System.EventHandler(this.DCLog_Load);
             this.ResumeLayout(false);
 
