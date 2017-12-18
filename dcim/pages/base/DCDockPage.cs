@@ -24,5 +24,10 @@ namespace dcim.pages
         {
             get { return m_title; }
         }
+
+        private void DCDockPage_Load(object sender, EventArgs e)
+        {
+            Text = m_title;
+        }
     }
 }

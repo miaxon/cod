@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Drawing.Design;
 using System.Linq;
 using System.Text;
@@ -98,8 +99,8 @@ namespace dcim.objects
         [ReadOnly(false)]
         [Description("Object info")]
         [DisplayName("Info")]
-        [PropertyOrder(8)]
-        [Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))]
+        [PropertyOrder(8)]        
+        [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
         public string Info { get; set; }       
 
         protected bool has_error = true;

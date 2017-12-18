@@ -177,6 +177,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="pages\base\DCDockPage.resx">
+      <DependentUpon>DCDockPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="pages\DCPropertyPage.resx">
       <DependentUpon>DCPropertyPage.cs</DependentUpon>
     </EmbeddedResource>

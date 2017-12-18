@@ -24,7 +24,6 @@ namespace dcim.pages
 
         private void DCObjectPage_Load(object sender, EventArgs e)
         {
-            Text = m_title;
             if (!this.DesignMode)
                 Upadate();
         }

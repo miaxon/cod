@@ -15,6 +15,7 @@ namespace dcim.pages
         public DCPropertyPage()
         {
             InitializeComponent();
+            Text = "Properties";
         }
         public object GetNewValue(string property)
         {
@@ -87,6 +88,11 @@ namespace dcim.pages
                 Tuple<object, object> values = Tuple.Create(EditList[str].Item1, e.ChangedItem.Value);
                 EditList[str] = values;
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 
